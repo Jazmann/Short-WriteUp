@@ -23,11 +23,9 @@ As for the discrete representation of the axes, it's desired that all the inform
 
 \subsection{Camera RGB and Normalization for Discrete Range}\label{sec:CameraRGB}
 
-Due to the iPhone hardware being locked down at the application level, we do not have access to the raw camera feed. We do, however, have access to the post-processing (color-rebalanced and white-point-corrected) 8-bit RGB image data.
+Due to the iPhone hardware being locked down at the application level, we do not have access to the raw camera feed. We do, however, have access to the post-processing (color-rebalanced and white-point-corrected) 8-bit RGB image data. Investigating the difficulties introduced by these processing effects and accounting for them is looked at in a later chapter  \ref{sec:iPhoneCameraCharacteristics}.
 
-Because we're searching for particular points in the real color space --- which, being a continuous function, is infinite dimensional --- there is a possibility in the future that larger multi-channel color spaces will be much more common, such as the 8-channel color spaces currently in development. Though most such cameras are primarily designed for post-production editing for still pictures and film (e.g. changing the lighting independent of the scene), as well as visual effects, the possibilities for computer vision are exciting. However, computer vision tasks are computationally intensive, and more often than not require operation in real time, so there is a natural inclination to shy away from large data sets in practical computer vision applications; many tasks are done in grayscale or single-channel processing to expedite the process.
-
-As such, there is a need to develop techniques which keep the relevant information while quickly and efficiently discarding the irrelevant information. This is true for the RGB space at the moment, and the aim of this first part of the work.
+Computer vision tasks are computationally intensive and often operate in real time. Reduction of the image data set size is a simple method for improving performance. There is, therefore, a need to develop techniques which keep the relevant information while quickly and efficiently discarding the irrelevant information. Achieving this for the RGB space is the aim of this chapter.
 
 
 \subsection{Rotation Matrix}\label{sec:RotationMatrix}

@@ -78,6 +78,15 @@
   }
 } 
 
+% The matrix in the 0 < theta < Pi/6 region \qR[\theta]=\fRO[ \qRm[\theta], \theta]
+\newcommand\qRm[1][]{
+  \ifstrempty{#1}{
+     \mathbf{qR}\text{m}
+  }{
+     \mathbf{qR}\text{m}\left( #1 \right)
+  }
+} 
+
 % The perturbation to the matrix 
 \newcommand\dqR[1][]{
   \ifstrempty{#1}{
@@ -96,6 +105,14 @@
   }
 } 
 
+% The perturbation to the matrix in the 0 < theta < Pi/6 region \dqR[\theta]=\fRO[ \dqRm[\theta], \theta]
+\newcommand\dqRm[1][]{
+  \ifstrempty{#1}{
+    \delta \mathbf{qR}\text{m}
+  }{
+    \delta \mathbf{qR}\text{m}\left( #1 \right)
+  }
+} 
 
 % ----- fR definitions -------
 % The scaling for the matrix
@@ -129,7 +146,7 @@
   \ifstrempty{#1}{
     \text{fSe}
   }{
-    \text{fSe}\left[#1 \right)
+    \text{fSe}\left( #1 \right)
   }
 } 
 
@@ -151,7 +168,7 @@
   }
 } 
 
-% The matrix in the 0 < theta < Pi/6 region \dfR[\theta]=\fRO[ \dfRe[\theta], \theta]
+% The matrix in the 0 < theta < Pi/6 region \dfR[\theta]=\fRO[ \dfRm[\theta], \theta]
 \newcommand\fRm[1][]{
   \ifstrempty{#1}{
      \mathbf{fR}\text{m}
@@ -231,6 +248,22 @@
 } 
 
 
+\newcommand\Ra[1][]{
+  \ifstrempty{#1}{
+    \apprx{\mathbf{R}}
+  }{
+   \apprx{ \mathbf{R}} \left( #1 \right)
+  }
+} 
+
+\newcommand\dR[1][]{
+  \ifstrempty{#1}{
+   \delta\mathbf{R}
+  }{
+   \delta\mathbf{R} \left( #1 \right)
+  }
+} 
+
 % The scaling for the matrix
 \newcommand\rS[1][]{
   \ifstrempty{#1}{
@@ -241,13 +274,25 @@
 } 
 
 
+
+
 % ----- nR definitions -------
+
+% The axis length normalising scaling.
+\newcommand\inS[1][]{
+  \ifstrempty{#1}{
+    \vec{L}
+  }{
+    \vec{L}\left( #1 \right)
+  }
+} 
+
 % The scaling for the matrix
 \newcommand\nS[1][]{
   \ifstrempty{#1}{
-    \vec{\mathbf{L}^{\um 1}}
+    \vec{L^{\um 1}}
   }{
-    \vec{\mathbf{L}^{\um 1}}\left( #1 \right)
+    \vec{L^{\um 1}}\left( #1 \right)
   }
 } 
 
@@ -314,7 +359,7 @@
 \newcommand{\intR}{\text{iR}}
 \newcommand{\iR}{\intR}
 \newcommand{\discreteR}{\widetilde{\uR}}
-\newcommand{\dR}{\discreteR}
+%\newcommand{\dR}{\discreteR}
 \newcommand{\delR}{\delta\uR}
 \newcommand{\rRange}{\text{rRange}}  % the discretization of the rotation matrix
 
