@@ -470,3 +470,23 @@ The moment weighted average of these is the angle $\theta$ which will most reduc
  
  The Filament Fill algorithm returns a set of points distributed linearly around the perimeter. The appropriate FASDM method is therefore a point-based centroid found by generating points along the shape perimeter which are equally-spaced perpendicular projections from the shape axis.
 
+\chapter{iPhone Camera Setup}\label{sec:iPhoneCameraSetup}
+Quite later on in development, an iOS update was released which allows in-code control of camera properties, such as focus, exposure and white point color balance. Because the code does per-pixel comparisons and assumes that the color values remain constant, the first thing this allows us to do is fix the exposure, the white point and the focus such that, as the code is tracking the digit and tracking the blood flow, the algorithm isn't thrown off by the phone deciding to suddenly changing the camera properties. 
+
+Initially, a simple routine was added which simply fixed these camera properties before starting the tracking. However, it was apparent that we could take advantage of the camera control features to produce a better result. First, we needed to be able to perform a metric for how good the camera settings are for tracking. Initially, this metric was taken using the whole image. Taking the classified image, the metric was formed by taking a weighted sum of the classified image pixel values; the metric scored values of 0 and 3 positively and values of 1 and 2 negatively, the idea being to promote camera settings which result in a classified image which rewards certainty.
+
+However, the problem with this approach is that if the camera properties are set with, say, a very low exposure, the image is almost entirely black and the classified image is certain that there isn't a finger in the picture, regardless of the reality, so this metric is scored highly. To combat this, the app allows two regions to be selected in the frame, one which definitely contains skin, and one which definitely does not. We then have two separate metrics for the skin region; values of 2 and 3 are scored highly, while values of 0 and 1 are scored negatively, and conversely for the skinless region.
+
+After all this work, we have three metrics: one which rewards correctly identifying skin, one which rewards correctly identifying background, and one which rewards overall certainty. The final metric which was returned in the camera calibration is the weighted sum of these three metrics; the skin and the background identification metrics given a slightly higher weighting than the overall certainty.
+
+\clearpage
+
+\section{Setting the Exposure}\label{sec:SettingTheExposure}
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/exposureGraphic1.jpg}
+    \caption{Optimization of the exposure for the iPhone camera.}\label{fig:ExposureGraphic1}
+\end{figure}
+To find the optimal exposure, the code first picks a handful of values between a minimum and maximum exposure and evaluates the metric at these values. This is done by setting the exposure waiting in-code for a few microseconds for the camera to finish adjusting and then evaluating the metric. This is necessary because the camera properties are set in a different thread to the tracking algorithm's thread. A bisection algorithm is then used to refine the optimal exposure (Figure  \ref{fig:ExposureGraphic1}).
+
+
