@@ -8,13 +8,13 @@
 \fi
 
 \section{Objective}\label{sec:Objective}
-We are trying to describe monochromatic objects which have a small variation around an average color --- the implicit assumption here is that skin is, essentially, monochromatic. Chromatic skin statistics have been collected by several authors (\cite{yang1998a,kollias1995,jedynak2003a,gomez2002a,Lee2002,Sigal2000a,Terrillon1999a}) using a variety of different approaches, but most have found that the statistics are well-described by 2D Gaussians in the chromatic plane. The goal of this chapter is to find a value of $\sigma$ (two standard deviations); $\mu$, the position for the mean; and $\theta^\prime$, the angle of the major axis of the 2D Gaussian found in the LCaCb $\theta = 0$ color space. This will allow us to use the methods presented in Chapter 2 to design a bespoke color space which will preserve all the chromatic information about the target model.
+We are trying to describe monochromatic objects which have a small variation around an average color --- the implicit assumption here is that skin is, essentially, monochromatic. Chromatic skin statistics have been collected by several authors (\cite{yang1998a,kollias1995,jedynak2003a,gomez2002a,Lee2002,Sigal2000a,Terrillon1999a}) using a variety of different approaches, but most have found that the statistics are well-described by 2D Gaussians in the chromatic plane. The goal of this chapter is to find a value of $\sigma$ (two standard deviations); $\mu$, the position for the mean; and $\theta^\prime$, the angle of the major axis of the 2D Gaussian found in the LCaCb $\theta = 0$ color-space. This will allow us to use the methods presented in Chapter 2 to design a bespoke color-space which will preserve all the chromatic information about the target model.
 
 \section{iPhone Camera Characteristics} \label{sec:iPhoneCameraCharacteristics}
 There are two aspects of the camera which affect the collection of the color statistics, the CCD sensitivity as detailed in Chapter 1 and the processing of the detected raw channel values before the AP layer. Unfortunately neither the details of the CCD nor the action of the preprocessing are publicly documented. The relevant effects are discovered and described in this section 
 
 \subsection{The White Point}\label{sec:WhitePoint}
-The iPhone's camera pre-processes the raw image before it reaches the AP layer which causes difficulties in collecting reliable statistics. Typically, cameras have a specific white point value, which is the RGB value corresponding to white which isn't necessarily the corner of the RGB cube; finding this value is part of the camera calibration. It also determines the orientation of the luminosity axis, which passes through zero to the white point. This is why pre-defined color space functions have an implicit white point correction. 
+The iPhone's camera pre-processes the raw image before it reaches the AP layer which causes difficulties in collecting reliable statistics. Typically, cameras have a specific white point value, which is the RGB value corresponding to white which isn't necessarily the corner of the RGB cube; finding this value is part of the camera calibration. It also determines the orientation of the luminosity axis, which passes through zero to the white point. This is why pre-defined color-space functions have an implicit white point correction. 
 
 \begin{figure}[h!]
   \centering
@@ -114,7 +114,7 @@ Next, the bins which are at the extreme edges (i.e. the ones which correspond to
 
 
 
-It should be noted that the reason the RGB cube is skinned before rotation is because it's not as easy to do in the rotated color space.
+It should be noted that the reason the RGB cube is skinned before rotation is because it's not as easy to do in the rotated color-space.
 
 
 \subsection{Rotating the Bins}\label{sec:RotatingTheBins}
@@ -125,7 +125,7 @@ It should be noted that the reason the RGB cube is skinned before rotation is be
         \caption{\textbf{The 3D RGB histogram after rotation}. The skin and background distributions can be seen for the Skin and the background. Here the bin color corresponds to the color which that bin represents and the opacity indicates the frequency of that bin value. Bin counts outside the black lines are set to zero. }   \label{fig:Rotate_the_Bins}
 \end{figure}
 
-Because each of the bins corresponds to just one RGB value, we can find the equivalent bin in the LCaCb space simply by rotating the bin index. This is done using the normalized rotation as described in Chapter 2. The normalised rotation is used as we desire the mean $\mu$ and standard deviation $\sigma$ to be specified in the $0:1$ range, which is easier to find where all the axes are of the same length. With this done, we now have a set of bins in the LCaCb color space equivalent to that which would be found if we had applied the transform to each of the images and then collected the statistics from the transformed images.
+Because each of the bins corresponds to just one RGB value, we can find the equivalent bin in the LCaCb space simply by rotating the bin index. This is done using the normalized rotation as described in Chapter 2. The normalised rotation is used as we desire the mean $\mu$ and standard deviation $\sigma$ to be specified in the $0:1$ range, which is easier to find where all the axes are of the same length. With this done, we now have a set of bins in the LCaCb color-space equivalent to that which would be found if we had applied the transform to each of the images and then collected the statistics from the transformed images.
 
 
 
@@ -255,7 +255,7 @@ In an attempt to identify a larger range of values for the skin space, a large n
 
 The image set consists of approximately 200 skin samples  each showing only one individuals skin. The result can be seen in Figures \ref{fig:AllTogether2D} and \ref{fig:AllTogether3D} as the GeneralSkin set. The distribution stands apart from the others and surprisingly has a smaller standard deviation. This is probably due to camera differences and the sampling techniques used in the Humane project which focus on finding an average color rather than the channel values in camera. The orientation and position of the distribution is more consistent with the theoretical values for the skin pigments than those for the individual sets. This is likely due to the fact that the theoretical values were calculated for a different camera CCD, the iPhone CCD characteristics not being available. For this reason the general distribution is excluded from further consideration aside from the recognition that different cameras will require bespoke statistics to be gathered. 
 
-In contrast to the GeneralSkin set the individual sets are close together with similar standard deviations however the angle varies significantly. The angle needs to be fixed so that the statistics can be gathered in the rotated color space. The angles are summarised in the table below:
+In contrast to the GeneralSkin set the individual sets are close together with similar standard deviations however the angle varies significantly. The angle needs to be fixed so that the statistics can be gathered in the rotated color-space. The angles are summarised in the table below:
 
 \begin{tabular}{|c|c|c|c|}
 \hline   Set                                                             & Decimal   & Approx                       & Relative \\ 
@@ -291,16 +291,16 @@ With the perturbations to each channel scaled by their relative importance (Figu
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1.0 \textwidth]{Chapter3/Figs/Fit_the_Gaussian_Final.jpg} 
-    \caption{The Product of Gaussians fit to the three individuals statistics in the LCa'Cb' color space.  }  \label{fig:FittheGaussianFinal}
+    \caption{The Product of Gaussians fit to the three individuals statistics in the LCa'Cb' color-space.  }  \label{fig:FittheGaussianFinal}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1.0 \textwidth]{Chapter3/Figs/Distribution_Results.jpg} 
-    \caption{ The redistribution functions for each axis alongside summary tables of the key parameters and a selection of calculations and an overview of the distribution in the new color space  }  \label{fig:DistributionResults}
+    \caption{ The redistribution functions for each axis alongside summary tables of the key parameters and a selection of calculations and an overview of the distribution in the new color-space  }  \label{fig:DistributionResults}
 \end{figure}
 
-As a final step, the MATLAB statistics gathering routine was run again using the combined F,J\&N RGB bins as a starting point and then rotating to the LCa'Cb' color space with the new value for $\theta$. This was done partly to check that the code works as expected and to see how well the product of Gaussians function fits the distribution. The only difference to the MATLAB code was that for this run the Gaussian fit was found using equation \ref{eq:2DGaussianProd} which is the product of two 1D Gaussians with a fixed amplitude of 1. The result can be seen in Figure \ref{fig:FittheGaussianFinal}. 
+As a final step, the MATLAB statistics gathering routine was run again using the combined F,J\&N RGB bins as a starting point and then rotating to the LCa'Cb' color-space with the new value for $\theta$. This was done partly to check that the code works as expected and to see how well the product of Gaussians function fits the distribution. The only difference to the MATLAB code was that for this run the Gaussian fit was found using equation \ref{eq:2DGaussianProd} which is the product of two 1D Gaussians with a fixed amplitude of 1. The result can be seen in Figure \ref{fig:FittheGaussianFinal}. 
 
 \begin{equation}\label{eq:2DGaussianProd}
 \exp \left( -\frac{{\CaMu}^2}{2 \sigma_1^2} -  \frac{ { \CbMu }^2}{2 \sigma_2^2} \right) \quad \textbf{where} \quad \CaMu = \text{Ca}-\mu_1 \quad \text{and} \quad \CbMu = \text{Cb}-\mu_2 
@@ -311,30 +311,30 @@ As a final step, the MATLAB statistics gathering routine was run again using the
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1.0 \textwidth]{Chapter3/Figs/Distribution_Results_Final.jpg} 
-    \caption{ \textbf{The Tight MATLAB fit in LCa'Cb'.} The redistribution functions for each axis alongside summary tables of the key parameters and a selection of calculations and an overview of the distribution in the new color space.}  \label{fig:DistributionResultsFinal}
+    \caption{ \textbf{The Tight MATLAB fit in LCa'Cb'.} The redistribution functions for each axis alongside summary tables of the key parameters and a selection of calculations and an overview of the distribution in the new color-space.}  \label{fig:DistributionResultsFinal}
 \end{figure}
 
-It can be seen that the least square fit is a good predictor for the distribution but the aim of the color space is to capture all skin relevant chromatic information. For this reason,  as well as the desire to be inclusive of skin tones outside of the sample set of three individuals, a region larger than the $2\sigma$ ellipse region (Figure \ref{fig:DistributionResultsFinal}) which is kept by the tight MATLAB fit may be desirable to be included. The $3\sigma$ ellipse region would include everything in the combined individual F,J\&N histogram. A $5\sigma$ ellipse region would  likely account for a wide variety of skin tones. 
+It can be seen that the least square fit is a good predictor for the distribution but the aim of the color-space is to capture all skin relevant chromatic information. For this reason,  as well as the desire to be inclusive of skin tones outside of the sample set of three individuals, a region larger than the $2\sigma$ ellipse region (Figure \ref{fig:DistributionResultsFinal}) which is kept by the tight MATLAB fit may be desirable to be included. The $3\sigma$ ellipse region would include everything in the combined individual F,J\&N histogram. A $5\sigma$ ellipse region would  likely account for a wide variety of skin tones. 
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1.0 \textwidth]{Chapter3/Figs/Distribution_Results_Final_Extended.jpg} 
-    \caption{ \textbf{The extended $5\sigma$ ellipse region MATLAB fit in LCa'Cb'.} The redistribution functions for each axis alongside summary tables of the key parameters and a selection of calculations and an overview of the distribution in the new color space. }  \label{fig:DistributionResultsFinalExtended}
+    \caption{ \textbf{The extended $5\sigma$ ellipse region MATLAB fit in LCa'Cb'.} The redistribution functions for each axis alongside summary tables of the key parameters and a selection of calculations and an overview of the distribution in the new color-space. }  \label{fig:DistributionResultsFinalExtended}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.95 \textwidth]{Chapter3/Figs/Distribution_Results_Final_Extended_3D.jpg} 
-    \caption{ The tight and extended fits in the LCa'Cb' color space.}  \label{fig:DistributionResultsFinalExtended3D}
+    \caption{ The tight and extended fits in the LCa'Cb' color-space.}  \label{fig:DistributionResultsFinalExtended3D}
 \end{figure}
 
 Extending the distribution may also affect the accuracy required in the rotation as mentioned previously. Extending out to a $5\sigma$ ellipse region does indeed affect the tolerance (Figure \ref{fig:DistributionResultsFinalExtended}), but the chosen angle perturbation $\pm0.144$ still satisfies the tolerance $\tau = 0.3094$ as $0.1441 < 0.3094$. It's also notable that the tight MATLAB distribution requires a partition in the chromatic axis while the extended distribution requires a small amount of redistribution. The tight MATLAB distribution and the extended distribution can be seen in Figure \ref{fig:DistributionResultsFinalExtended3D}.
 
 \subsection{Conclusion}
 
-Our goal was to find appropriate values for the 2D chromatic Gaussians in order to facilitate the image processing, and to create a color space that preserves all of the chromatic skin information. To show that we have achieved this, we will quickly demonstrate the skin probability map:
+Our goal was to find appropriate values for the 2D chromatic Gaussians in order to facilitate the image processing, and to create a color-space that preserves all of the chromatic skin information. To show that we have achieved this, we will quickly demonstrate the skin probability map:
 
-After redistribution we have two new spaces in which to express the stats parameters: the 0-dstMax range and the new 0-1 range, where 0 and 1 correspond to different positions in the original unit space because of the compression of the information. The mean values are at the halfway point in both $c_d=dstMax/2$ and $\mu_d = \frac{1}{2}$.  The standard deviations are scaled to fit the region which is 'kept' $\sigma_d=\frac{\sigma}{\lambda_2-\lambda_1}$. The probability of a pixel in the redistributed color space can then be found using 
+After redistribution we have two new spaces in which to express the stats parameters: the 0-dstMax range and the new 0-1 range, where 0 and 1 correspond to different positions in the original unit space because of the compression of the information. The mean values are at the halfway point in both $c_d=dstMax/2$ and $\mu_d = \frac{1}{2}$.  The standard deviations are scaled to fit the region which is 'kept' $\sigma_d=\frac{\sigma}{\lambda_2-\lambda_1}$. The probability of a pixel in the redistributed color-space can then be found using 
 \begin{equation}
 P(L,Ca,Cb) = Exp(- \frac{Ca-\mu_d^{Ca} }{2 \sigma_d^{Ca}} - \frac{Cb-\mu_d^{Cb} }{2 \sigma_d^{Cb}})
 \end{equation}
@@ -345,6 +345,6 @@ the result can be seen in Figure \ref{fig:TransformImages}.
     \caption{ Images of hands from the three individual sets processed with the opacity given by the probability that the pixel value is skin using the simply product of Gaussians method given above.}  \label{fig:TransformImages}
 \end{figure}
 
-The probability in these images is indicated by the opacity, but as you can see from the above images, all of the skin detail is preserved, therefore all the skin information is preserved. In a normal color space, the preservation of skin information is computationally intensive, but in the case of our bespoke color space, it is simply the product of two 2D Gaussians, therefore finding the skin probability is a very simple function. Thus, we have not only preserved the skin information, we have produced a simplified version of a complicated computer vision task. 
+The probability in these images is indicated by the opacity, but as you can see from the above images, all of the skin detail is preserved, therefore all the skin information is preserved. In a normal color-space, the preservation of skin information is computationally intensive, but in the case of our bespoke color-space, it is simply the product of two 2D Gaussians, therefore finding the skin probability is a very simple function. Thus, we have not only preserved the skin information, we have produced a simplified version of a complicated computer vision task. 
 
 It should be noted that the strict $1\sigma$ result misses some of the skin; this was expected as some histogram values lie outside the Gaussian fit, so loosening the criteria is necessary to capture all of the skin information. A $2\sigma$ or $3\sigma$ criteria should be sufficient to capture all of the skin information. Additionally, the simple implementation here does not account for unreliable white-out and black-out values, or use nearest pixel values, but this is not the final step of the algorithm. For this, we need a classifier, which will be explored in the following chapter.

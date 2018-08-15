@@ -60,9 +60,9 @@ Number of math displayed: 0
 
 Included file: ./Chapter1/chapter1.tex
 Encoding: ascii
-Words in text: 2434
+Words in text: 2419
 Words in headers: 17
-Words outside text (captions, etc.): 164
+Words outside text (captions, etc.): 162
 Number of headers: 7
 Number of floats/tables/figures: 7
 Number of math inlines: 25
@@ -70,16 +70,16 @@ Number of math displayed: 5
 Subcounts:
   text+headers+captions (#headers/#floats/#inlines/#displayed)
   4+1+0 (1/0/0/0) Chapter: Motivation
-  550+1+0 (1/0/0/0) Section: Introduction}\label{sec:Introduction
-  457+4+0 (1/0/0/0) Section: Choosing a Color Space
+  545+1+0 (1/0/0/0) Section: Introduction}\label{sec:Introduction
+  453+4+0 (1/0/0/0) Section: Choosing a Color Space
   110+2+0 (1/0/0/0) Section: Physiology Study}\label{sec:PhysiologyStudy
   605+4+35 (1/1/22/4) Subsection: Chromophores in Human Skin
   453+2+37 (1/3/0/0) Subsection: Response Spectra
-  255+3+92 (1/3/3/1) Subsection: Skin Color Simulation} \label{sec:SkinColorSimulation
+  249+3+90 (1/3/3/1) Subsection: Skin Color Simulation} \label{sec:SkinColorSimulation
 
 Included file: ./Chapter2/chapter2.tex
 Encoding: ascii
-Words in text: 2193
+Words in text: 2187
 Words in headers: 36
 Words outside text (captions, etc.): 44
 Number of headers: 7
@@ -89,18 +89,18 @@ Number of math displayed: 14
 Subcounts:
   text+headers+captions (#headers/#floats/#inlines/#displayed)
   4+9+0 (1/0/0/0) Chapter: Color Spaces and Information Storage for Computer Vision Processing} \label{sec:Chap2
-  101+5+0 (1/0/0/0) Section: Constructing a New Color Space}\label{sec:ConstructingANewColorSpace
+  100+5+0 (1/0/0/0) Section: Constructing a New Color Space}\label{sec:ConstructingANewColorSpace
   115+7+0 (1/0/0/0) Subsection: Camera RGB and Normalization for Discrete Range}\label{sec:CameraRGB
-  340+5+0 (1/0/11/0) Section: The Skin Color Space Algorithm
+  338+5+0 (1/0/11/0) Section: The Skin Color Space Algorithm
   410+6+0 (1/0/26/4) Subsection: Setting the Value for the Tolerance
-  869+3+44 (1/0/105/10) Subsection: The Complete Algorithm
-  354+1+0 (1/0/10/0) Subsection: Conclusion
+  868+3+44 (1/0/105/10) Subsection: The Complete Algorithm
+  352+1+0 (1/0/10/0) Subsection: Conclusion
 
 Included file: ./Chapter3/chapter3.tex
 Encoding: ascii
-Words in text: 3330
+Words in text: 3318
 Words in headers: 49
-Words outside text (captions, etc.): 530
+Words outside text (captions, etc.): 525
 Number of headers: 17
 Number of floats/tables/figures: 24
 Number of math inlines: 58
@@ -108,77 +108,71 @@ Number of math displayed: 2
 Subcounts:
   text+headers+captions (#headers/#floats/#inlines/#displayed)
   4+2+0 (1/0/0/0) Chapter: Skin Statistics}\label{sec:ChapSkin
-  122+1+0 (1/0/4/0) Section: Objective}\label{sec:Objective
+  120+1+0 (1/0/4/0) Section: Objective}\label{sec:Objective
   62+3+0 (1/0/0/0) Section: iPhone Camera Characteristics} \label{sec:iPhoneCameraCharacteristics
-  251+3+18 (1/1/3/0) Subsection: The White Point}\label{sec:WhitePoint
+  250+3+18 (1/1/3/0) Subsection: The White Point}\label{sec:WhitePoint
   244+3+9 (1/2/0/0) Subsection: Color Correction Preprocessing
   139+3+3 (1/1/5/0) Subsection: White-Out and Black-Out}\label{sec:WhiteoutAndBlackout
   27+5+0 (1/0/0/0) Section: Algorithm for Generating the Model}\label{sec:AlgorithmForGeneratingModel
   179+3+37 (1/1/0/0) Subsection: RGB Bin Allocation}\label{sec:RGBBinAllocation
-  114+3+49 (1/1/0/0) Subsection: Skinning the Bins}\label{sec:SkinningTheBins
-  114+3+52 (1/1/3/0) Subsection: Rotating the Bins}\label{sec:RotatingTheBins
+  113+3+49 (1/1/0/0) Subsection: Skinning the Bins}\label{sec:SkinningTheBins
+  113+3+52 (1/1/3/0) Subsection: Rotating the Bins}\label{sec:RotatingTheBins
   186+3+4 (1/1/0/0) Subsection: Top and Tail}\label{sec:TopAndTail
   36+3+32 (1/1/0/0) Subsection: Collapsing the Bins}\label{sec:CollapsingTheBins
   369+4+17 (1/1/0/0) Subsection: De-Speckling the Bin Values}\label{sec:DeSpeckle
   218+2+34 (1/1/3/0) Subsection: Blob Detection}\label{sec:BlobDetection
   96+3+6 (1/1/6/0) Subsection: The Gaussian Fit}\label{sec:TheGaussianFit
-  845+4+238 (1/11/28/1) Section: Sample Sets and Results}\label{sec:SampleSets
-  324+1+31 (1/1/6/1) Subsection: Conclusion
+  842+4+233 (1/11/28/1) Section: Sample Sets and Results}\label{sec:SampleSets
+  320+1+31 (1/1/6/1) Subsection: Conclusion
 
 Included file: ./Chapter4/chapter4.tex
 Encoding: ascii
-Words in text: 5523
-Words in headers: 85
+Words in text: 5285
+Words in headers: 83
 Words outside text (captions, etc.): 453
-Number of headers: 24
+Number of headers: 23
 Number of floats/tables/figures: 25
-Number of math inlines: 25
+Number of math inlines: 29
 Number of math displayed: 4
 Subcounts:
   text+headers+captions (#headers/#floats/#inlines/#displayed)
   4+4+0 (1/0/0/0) Chapter: Pattern Recognition and Implementation
-  55+4+0 (1/0/0/0) Section: Implementing the Color Space}\label{sec:ImplementingTheColorSpace
-  246+2+0 (1/0/1/0) Section: Fingertip Model}\label{sec:FingertipModel
-  1670+45+87 (10/7/17/1) Subsection: The Finger Shape Detection Algorithm}\label{sec:FingerShapeDetectionAlgorithm
-  472+2+0 (1/0/0/0) Section: Dynamic Tracking}\label{sec:DynamicTracking
+  54+4+0 (1/0/0/0) Section: Implementing the Color Space}\label{sec:ImplementingTheColorSpace
+  1684+45+87 (10/7/22/1) Subsection: The Finger Shape Detection Algorithm}\label{sec:FingerShapeDetectionAlgorithm
+  471+2+0 (1/0/0/0) Section: Dynamic Tracking}\label{sec:DynamicTracking
   95+3+0 (1/0/0/0) Subsection: Rapid Motion Tracking}\label{sec:RapidMotionTracking
   744+3+37 (1/2/7/0) Subsection: Smooth Motion Tracking}\label{sec:SmoothMotionTracking
-  1002+9+270 (4/7/0/3) Subsection: ICWaS Method}\label{sec:ICWaS
+  999+9+270 (4/7/0/3) Subsection: ICWaS Method}\label{sec:ICWaS
   457+3+26 (1/3/0/0) Subsection: Dynamic State Transitions}\label{sec:DynamicStateTransitions
   369+3+0 (1/0/0/0) Section: iPhone Camera Setup}\label{sec:iPhoneCameraSetup
   80+3+8 (1/1/0/0) Subsection: Setting the Exposure}\label{sec:SettingTheExposure
-  329+4+25 (1/5/0/0) Section: Putting it All Together}\label{sec:PuttingItAllTogether
+  328+4+25 (1/5/0/0) Section: Putting it All Together}\label{sec:PuttingItAllTogether
 
 Included file: ./Chapter5/chapter5.tex
 Encoding: ascii
-Words in text: 5057
-Words in headers: 89
-Words outside text (captions, etc.): 70
-Number of headers: 24
-Number of floats/tables/figures: 6
-Number of math inlines: 21
+Words in text: 2562
+Words in headers: 48
+Words outside text (captions, etc.): 161
+Number of headers: 14
+Number of floats/tables/figures: 5
+Number of math inlines: 12
 Number of math displayed: 0
 Subcounts:
   text+headers+captions (#headers/#floats/#inlines/#displayed)
   0+4+0 (1/0/0/0) Chapter: Future Work and Discussion
-  118+3+0 (1/0/0/0) Section: Results and Evaluation}\label{sec:ResultsAndEvaluation
-  218+3+24 (1/1/0/0) Subsection: Timing the Methods}\label{sec:TimingTheMethods
+  114+3+0 (1/0/0/0) Section: Results and Evaluation}\label{sec:ResultsAndEvaluation
+  215+3+24 (1/1/0/0) Subsection: Timing the Methods}\label{sec:TimingTheMethods
   149+4+3 (1/1/0/0) Subsection: Optimization Variation with Input}\label{sec:OptimizationVariationWithInput
   0+2+0 (1/0/0/0) Section: Future Applications}\label{sec:FutureApplications
-  598+2+35 (1/3/0/0) Subsection: Medical Applications}\label{sec:MedicalApplications
-  549+17+0 (4/0/0/0) Subsection: Scientific Applications}\label{sec:ScientificApplications
-  419+12+0 (3/0/0/0) Subsection: Computer Vision Applications}\label{sec:ComputerVisionApplications
-  111+4+0 (1/0/0/0) Section: Color Space Algorithm Improvements}\label{sec:ColorSpaceAlgorithmImprovements
-  495+3+0 (1/0/3/0) Subsection: Generalizing the Rotation}\label{sec:GeneralizingTheRotation
-  342+3+8 (1/1/9/0) Subsection: Multi-Channel Color Spaces}\label{sec:MultiChannelColorSpaces
-  227+7+0 (1/0/0/0) Subsection: Using the RAW Image From the Camera}\label{sec:UsingTheRAWImageFromTheCamera
+  168+2+134 (1/3/0/0) Subsection: Medical Applications}\label{sec:MedicalApplications
+  110+4+0 (1/0/0/0) Section: Color Space Algorithm Improvements}\label{sec:ColorSpaceAlgorithmImprovements
+  494+3+0 (1/0/3/0) Subsection: Generalizing the Rotation}\label{sec:GeneralizingTheRotation
+  228+7+0 (1/0/0/0) Subsection: Using the RAW Image From the Camera}\label{sec:UsingTheRAWImageFromTheCamera
   0+2+0 (1/0/0/0) Section: Implementation Improvements}\label{sec:ImplementationImprovements
   175+4+0 (1/0/0/0) Subsection: An Empirical WoBo Algorithm}\label{sec:EmpicialWoBoAlgorithm
-  424+3+0 (1/0/9/0) Subsection: Auto-Adjusting the Variance}\label{sec:AutoAdjustingTheVariance
-  364+6+0 (1/0/0/0) Subsection: Statistics Gathering Method for the App}\label{sec:StatisticsGatheringMethod
-  162+3+0 (1/0/0/0) Subsection: Improved ICWaS Alignment}\label{sec:ImprovedICWaSAlignment
-  254+6+0 (1/0/0/0) Subsection: More Designed Metric for Mechanical Stress}\label{sec:MoreDesignedMetricForMechanicalStress
-  452+1+0 (1/0/0/0) Section: Conclusion}\label{sec:ConclusionCh5
+  422+3+0 (1/0/9/0) Subsection: Auto-Adjusting the Variance}\label{sec:AutoAdjustingTheVariance
+  54+6+0 (1/0/0/0) Subsection: Statistics Gathering Method for the App}\label{sec:StatisticsGatheringMethod
+  433+1+0 (1/0/0/0) Section: Conclusion}\label{sec:ConclusionCh5
 
 Included file: ./Chapter2/AppendixChapter2.tex
 Encoding: ascii
@@ -254,12 +248,12 @@ Number of math inlines: 0
 Number of math displayed: 0
 
 File(s) total: thesis.tex
-Words in text: 28040
-Words in headers: 396
-Words outside text (captions, etc.): 1741
-Number of headers: 110
-Number of floats/tables/figures: 82
-Number of math inlines: 670
+Words in text: 25274
+Words in headers: 353
+Words outside text (captions, etc.): 1825
+Number of headers: 99
+Number of floats/tables/figures: 81
+Number of math inlines: 665
 Number of math displayed: 101
 Files: 15
 Subcounts:
@@ -269,11 +263,11 @@ Subcounts:
   88+0+0 (0/0/0/0) Included file: ./Declaration/declaration.tex
   105+0+0 (0/0/0/0) Included file: ./Acknowledgement/acknowledgement.tex
   334+1+0 (1/0/0/0) Included file: ./Abstract/abstract.tex
-  2434+17+164 (7/7/25/5) Included file: ./Chapter1/chapter1.tex
-  2193+36+44 (7/0/152/14) Included file: ./Chapter2/chapter2.tex
-  3330+49+530 (17/24/58/2) Included file: ./Chapter3/chapter3.tex
-  5523+85+453 (24/25/25/4) Included file: ./Chapter4/chapter4.tex
-  5057+89+70 (24/6/21/0) Included file: ./Chapter5/chapter5.tex
+  2419+17+162 (7/7/25/5) Included file: ./Chapter1/chapter1.tex
+  2187+36+44 (7/0/152/14) Included file: ./Chapter2/chapter2.tex
+  3318+49+525 (17/24/58/2) Included file: ./Chapter3/chapter3.tex
+  5285+83+453 (23/25/29/4) Included file: ./Chapter4/chapter4.tex
+  2562+48+161 (14/5/12/0) Included file: ./Chapter5/chapter5.tex
   4889+49+304 (13/9/278/65) Included file: ./Chapter2/AppendixChapter2.tex
   4071+62+176 (16/11/111/11) Included file: ./Chapter4/AppendixChapter4.tex
 
