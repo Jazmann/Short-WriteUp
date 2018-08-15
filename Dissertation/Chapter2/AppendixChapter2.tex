@@ -1,7 +1,8 @@
 
-\chapter{Chapter 2 Mathematical Results}
+\chapter{An Integer Rotation Matrix}
 
-\subsection{Rotation Matrix}\label{sec:RotationMatrix}
+\section{Rotation Matrix}\label{sec:RotationMatrix}
+
 Any rotation about an axis can be represented by a 3x3 square matrix in a 3D space. Since they are invertible, they're guaranteed to be non-singular. However, as there are many ways in which to rotate an object from one position to another, or use a combination of different rotations to get to the same point, they aren't necessarily unique. For this application, we require rotation about three different axes, which can be expressed thus:
 
 
@@ -700,7 +701,7 @@ The fully factorized rotation matrix can now be written as
 
 This achieves our goal of factoring the rotation such that the largest element of each matrix row is one.
 
-\chapter{Quantizing the Rotation}
+\section{Quantizing the Rotation}
 
 The factored rotation $\mathbf{fR}$ \ref{eq:TheFactoredRoationMatrix} contains 4 non-integer elements lying between $-1$ and $0$, which we wish to quantize. 
 
@@ -1820,15 +1821,15 @@ None of the rotated axes have lengths less than 1 for the unit RGB cube. For thi
 
 We can use a function to redistribute the information contained on the longer axis onto the shorter axis, which can be expressed in the discrete representation of that axis necessitated by internal integer data types. There are three ways in which to implement the re-distribution functions:
 
-\subsection{Partition}\label{sec:Partition}
+\section{Partition}\label{sec:Partition}
 
 The most straightforward re-distribution method is to simply preserve the information in a 1-to-1 fashion within a region. The region can be defined in terms of the distribution Gaussian by specifying a significance level in terms of the variance or the standard deviation.
 
-\subsection{Linear}\label{sec:Linear}
+\section{Linear}\label{sec:Linear}
 
 A slightly more sophisticated method is to use a linear re-distribution. A linear distribution is equivalent to partitioning given a unit gradient. However, a linear re-distribution function allows for the possibility of data compression. So then, in the case where the region of interest contains more information than can be expressed in the destination data type, a linear distribution function allows an even compression of the information from source to destination. ~\cite{Lee2002}
 
-\subsection{ERF (Gaussian Error Function)}\label{sec:ERF}
+\section{ERF (Gaussian Error Function)}\label{sec:ERF}
 
 The integral of the cumulative Gaussian (i.e. Error Function) allows the re-distribution of the information on the axis in a way which selectively preserves the information about a point on the axis (i.e. the mean of the Gaussian), and then progressively discard the information as it falls into the tails of the Gaussian. So, it provides a non-linear distribution of the information. The Gaussian can be seen as describing our interest in the information contained along the axis, so it's logical to use the error function to redistribute the information. The disadvantage of this is simply the computational effort involved in generating the error function.
 
@@ -1859,11 +1860,11 @@ First, we determine the maximum value taken in the domain. This is simply found 
 \end{equation}
 
 
-\subsection{Efficiently Implementing the Distribution Function}
+\section{Efficiently Implementing the Distribution Function}
 Mathematically, the ERF distribution function~(\ref{eq:disFunction}) achieves all the stated objectives. However, on a device we are dealing with discrete numerics and limited processing power, so further analysis is required. Where we're using a discrete domain and range, the distribution is usefully divided into three characteristic behaviours:  where it is constant, where it preserves all the information, and where it selectively preserves information. Looking at the distribution, this divides the source domain into five regions: two where it is effectively constant, two where it is selective, and one region around the mean where it preserves all the information. In order to design an efficient algorithm, it is useful to identify the boundaries of these five regions.
 
 
-\subsubsection{The Region Which Discards All Information}
+\subsection{The Region Which Discards All Information}
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.7\linewidth]{Chapter2/Figs/EffectivlyConstantRange}
@@ -1905,7 +1906,7 @@ The boundaries of the regions $x < \Discard_1 $ and $ x > \Discard_2$ for $x \in
 \end{aligned}
 \end{equation}
 
-\subsubsection{The Region Which Keeps All Information}
+\subsection{The Region Which Keeps All Information}
 To find the region where all the information in the source domain is preserved, we differentiate the distribution and solve for where the gradient is equal to the destination range over the source range. This corresponds to the point at which a unit change in the source produces a unit change in the destination range:
 
 \begin{equation}\label{eq:Boundaries}
@@ -1962,7 +1963,7 @@ In the C++ code, whilst numerical routines were used  MatLab and Mathematica to 
 \end{aligned}
 \end{equation}
 
-\subsubsection{The Compression Ratio}
+\subsection{The Compression Ratio}
 
 There is one final value of interest to the development of the algorithm, which is the gradient at the mean. The reason this is of interest is because we're trying to compress the relevant data as much as possible. If the destination region is small (i.e. the destination machine type is smaller than the source type), then the gradient at the mean allows us to assess the fidelity required of the source type. If it weren't for the fact that the source is the result of a rotation transformation, then there would be little purpose in assessing this value. However, it is entirely possible that the lengthening of the axes resulting from the rotation is insignificant for the desired destination type; there's no point preserving information during the rotation which is then discarded by the re-distribution. The gradient is given by
 
@@ -2205,7 +2206,7 @@ And the compression ratio $\kappa$ is also explicitly restricted to being at mos
 %\end{array}
 %\end{equation}
 
-\subsubsection{A Piecewise Approximation to the ERF Distribution}
+\subsection{A Piecewise Approximation to the ERF Distribution}
 We now have equations which give us the four points in the source domain which mark the boundaries of the five characteristic regions. We can now use them to define a piecewise function which uses the computationally problematic error function based distribution as little as possible
 
 \begin{equation}

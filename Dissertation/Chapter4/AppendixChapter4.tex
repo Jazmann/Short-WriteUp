@@ -1,9 +1,9 @@
 
-\chapter{Chapter 4 Colorspace Methods}
+\chapter{Colorspace Methods}
 
 \section{Implementing the Color Space}\label{sec:ImplementingTheColorSpace}
 
-In the previous two chapters, we have been approaching the color space design problem mathematically. Here, we will outline the practical implementation of the color space algorithm on the mobile device.
+Here, we will outline the practical implementation of the color space algorithm on the mobile device.
 
 The first and most pressing consideration is limited processing power; while our mathematical approach to the algorithm design is significantly faster and more efficient than the more typical color space algorithms --- as will be discussed in the following chapter --- minimizing the number of clock cycles spent on continuous processes is necessary in order to ensure efficient operation. In the case of redistribution, the integer matrix transform is performed first, which puts the pixel values in the quantized working type $qRsRange$ described in Chapter 2, then pixel classification is performed before any of the chromatic information is redistributed as illustrated in Figure \ref{fig:PartitioningRegions}.
 
@@ -227,13 +227,12 @@ Color $\ColorSquareBool$ & $\WoBoBool$ & $\ColorSquareBool$ & XOR($\ColorSquareB
 This produces a 2-bit image, as seen in Figure \ref{fig:2BitImage}. For this purpose, a 2-bit data type was added to OpenCV. The question then is how to use it. Essentially, we have four different states: values which are neither the right color nor in the right region; values which are possibly the right color, but because they're outside the valid region, they've potentially suffered from white-out and black-out; values which are in the right region, but the wrong color, and we are certain that they are not skin; and finally, values which are in the valid region and are of the right color. In the following subsections we will present some useful methods which take advantage of this quaternary classified image.
 
 
-\chapter{Chapter 4 Shape Finding Methods}
+\chapter{Shape Fitting Methods}
 
-\clearpage
-\subsection{The `Hurdle' Method}\label{sec:HurdleMethod}
+\section{The `Hurdle' Method}\label{sec:HurdleMethod}
 The Hurdle method is an algorithm for finding a path inside an object using the quaternary classified image. The Hurdle method follows straight line paths in the object. As written, it is flexible enough to follow any straight line, however the current implementation takes a direction vector and evaluates at multiples of that direction vector. This means that non-horizontal and non-vertical lines are not guaranteed to be continuous. This is because the pixel values are not found using Bresenham's line algorithm. The algorithm has two thresholds --- a high and a low threshold. Whilst the pixel values remain in the high threshold, the path end point variable is updated; when the pixel values are in the lower threshold, the algorithm continues along the path, but without updating the path end point. This allows the path to pass through artifacts (i.e. pixel values which are inside the object but which have been misclassified), but does not allow the path to extend outside of the object into regions which are, for instance, in the shadow of the object.
  
-\subsection{The `Filament Fill' Method}\label{sec:FilamentFill}
+\section{The `Filament Fill' Method}\label{sec:FilamentFill}
 
 \begin{figure}[h!]
   \centering
@@ -247,7 +246,7 @@ The Filament Fill method takes a path --- given as a sequence of points --- with
 
 For the purposes of the shape detection algorithms, there are metrics that are applied which suffer from noise and anomalies, where the noise is due to the natural variability of human digits from regular geometric forms, and the anomalies are due to misdetections of the edges of the digit. We assume that the anomalous results are extreme values, however we acknowledge that the most common (mode) or middle (median) values may not be representative of the best geometric approximation for the shape. The Mean-Median method --- similar to the "k-Nearest Neighbors" algorithm --- solves this problem by taking a confidence interval around the median and then taking the mean of the points within this interval. This method is a useful adaptation of methods like the k-Nearest Neighbors in that it solves the outlier problem for this particular application.
 
-\subsection{The `Kink Fit' Method}\label{sec:KinkFitMethod}
+\section{The `Kink Fit' Method}\label{sec:KinkFitMethod}
 The Kink Fit algorithm takes in a set of 2D points, where the first component is taken to be the independent variable and the second component is taken to be the dependent variable. This assumption excludes the possibility of truly vertical lines being presented to the algorithm. The Kink Fit algorithm fits a function which consists of two straight-line segments to a set of points. Unfortunately, currently the only piecewise linear fitting function is the proprietary MARS algorithm which, aside from being commercial, is overkill for this particular problem, which has a small number of points which are well-aligned. 
 
 The Kink Fit algorithm relies on the fact that we know that the points are in order; it chooses a point and divides the set in two, and then performs a standard, least squares linear fit to the two sets. Both sets include the point at which the set is divided. 
@@ -256,7 +255,95 @@ The fit is also assumed to be continuous, except in the first derivative. The al
 
 The algorithm then finds the residuals, and then finds the average of the square of the residuals. This is considered the score for dividing the set of points at that position. The algorithm finds the point which minimizes the score using a bisecting algorithm; if a linear fit to the data has a low score, then the Kink Fit algorithm is considered unnecessary and the digit is assumed to be in a relaxed, straight, neutral pose. The algorithm specifies a minimum number of points to be included in a set, as this avoids the problem of dividing into sets which contain only one point.
 
-\subsection{The `Elliptical Fit' Method}\label{sec:EllipticalFitMethod}
+%\begin{figure}[h!]
+%  \centering
+%    \includegraphics[width=0.92\textwidth]{Chapter4/Figs/KinkFit_A.jpg}
+%    \caption{KinkFitA}\label{fig:KinkFitA}
+%\end{figure}
+
+%\begin{figure}[h!]
+%  \centering
+%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_B.jpg}
+%    \caption{KinkFitB}\label{fig:KinkFitB}
+%\end{figure}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.88\textwidth]{Chapter4/Figs/KinkFit_C.jpg}
+    \caption{Example A of the KinkFit algorithm in action, showcasing its reliability over several iterations.}\label{fig:KinkFitC}
+\end{figure}
+
+%\begin{figure}[h!]
+%  \centering
+%    \includegraphics[width=0.85\textwidth]{Chapter4/Figs/KinkFit_D.jpg}
+%    \caption{KinkFitD}\label{fig:KinkFitD}
+%\end{figure}
+
+%\begin{figure}[h!]
+%  \centering
+%    \includegraphics[width=0.80\textwidth]{Chapter4/Figs/KinkFit_E.jpg}
+%    \caption{KinkFitE}\label{fig:KinkFitE}
+%\end{figure}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_F.jpg}
+    \caption{Example B of the KinkFit algorithm in action, showcasing its reliability over several iterations.}\label{fig:KinkFitF}
+\end{figure}
+
+%\begin{figure}[h!]
+%  \centering
+%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_G.jpg}
+%    \caption{KinkFitG}\label{fig:KinkFitG}
+%\end{figure}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_H.jpg}
+    \caption{Example C of the KinkFit algorithm in action, showcasing its reliability over several iterations.}\label{fig:KinkFitH}
+\end{figure}
+
+%\begin{figure}[h!]
+%  \centering
+%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_I.jpg}
+%    \caption{KinkFitI}\label{fig:KinkFitI}
+%\end{figure}
+
+%\begin{figure}[h!]
+%  \centering
+%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_J.jpg}
+%    \caption{KinkFitJ}\label{fig:KinkFitJ}
+%\end{figure}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_K.jpg}
+    \caption{Example D of the KinkFit algorithm in action, showcasing its reliability over several iterations.}\label{fig:KinkFitK}
+\end{figure}
+
+%\begin{figure}[h!]
+%  \centering
+%   \includegraphics[width=0.95\textwidth]{Chapter4/Figs/ICWaS1.jpg}
+%    \caption{ICWaS1}\label{fig:ICWaS1}
+%\end{figure}
+%\begin{figure}[h!]
+%  \centering
+%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/ICWaS2.jpg}
+%    \caption{ICWaS2}\label{fig:ICWaS2}
+%\end{figure}
+%\begin{figure}[h!]
+%  \centering
+%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/ICWaS3.jpg}
+%    \caption{ICWaS3}\label{fig:ICWaS3}
+%\end{figure}
+%\begin{figure}[h!]
+%  \centering
+%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/ICWaS4.jpg}
+%    \caption{ICWaS4}\label{fig:ICWaS4}
+%\end{figure}
+
+
+\section{The `Elliptical Fit' Method}\label{sec:EllipticalFitMethod}
 Fitting an ellipse to a set of points is surprisingly difficult. The reason for this is outlined below.
 
 To follow the standard linear algebra approach to least squares fitting, we need to decide upon a functional form for the fit, and thereby a basis set. For an ellipse, this basis set is $\chi= \left(x^2, x y, y^2, x, y, 1\right)$, which is a set of six free coefficients $ A^T=\left\{A_{\text{xx}},A_{\text{xy}},A_{\text{yy}},A_x,A_y,A_0\right\}$. However, to specify an ellipse, all that is needed is five numbers; the major and minor axes lengths $(a,b)$, the position $(x_0,y_0)$, and the orientation $\theta$. This is because the basis set includes lines, quadratics, parabolic and hyperbolic functions as well as elliptical functions as possible fits. An additional difficulty arises when we try to construct a cost function for an ellipse. Ideally, we wish to minimize the perpendicular distances of the points from the ellipse, but the calculation of the distance of a point from an ellipse is not straightforward, requiring the roots of a fourth degree polynomial to be found. Due to these complexities, several different methods have been proposed by different authors, but we will be focusing on two methods: The Approximate Mean Square (AMS)  proposed by (\cite{Taubin1991}), and the Direct least square (Direct) method by (\cite{Fitzgibbon1999}).
@@ -330,7 +417,7 @@ These methods were implemented in Mathematica for evaluation and in the OpenCV C
 The largest computational effort in both methods is the determination of the $D^T D$ matrix. Once found, however, both methods can be used at relatively little extra computational cost. All Ellipses between the two can be considered as valid fits also. This suggests a method which allows for extra information to be used to refine the fit. In the case of the finger model this is the orientation, distal width and position from the parallel line fit. The ellipse between the two fits which most closely matches the extra information is chosen as the best fit.
 \clearpage
 
-\subsection{The `Isoscelian Trapezian' Fit}\label{sec:TrapezianFit}
+\section{The `Isoscelian Trapezian' Fit}\label{sec:TrapezianFit}
 
 Given three sets of points corresponding to the top, middle and bottom of an isosceles trapezium which is oriented so that the parallel sides are on the left and right, a fit can be found as follows:
 
@@ -342,7 +429,7 @@ Given three sets of points corresponding to the top, middle and bottom of an iso
 \item Four points describing the trapezium are found and returned along with the orientation and position in the original coordinates.
 \end{enumerate}
 
-\subsection{The `Force Analogue Shape Detection' Method (FASDM)}\label{sec:ForceAnalogue}
+\section{The `Force Analogue Shape Detection' Method (FASDM)}\label{sec:ForceAnalogue}
 \newcommand{\pos}{\mathbf{P}}
 \newcommand{\F}{\mathbf{F}_i}
 \newcommand{\Ft}{\mathbf{F}^\tau_i}

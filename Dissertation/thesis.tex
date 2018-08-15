@@ -1,4 +1,5 @@
 % !TeX document-id = {e3a7ff19-e925-4f85-9d15-87fd720805e2}
+% !TeX TXS-program:compile = txs:///pdflatex --shell-escape --enable-write18 
 % ******************************* PhD Thesis Template **************************
 % Please have a look at the README.md file for info on how to use the template
 
@@ -83,6 +84,12 @@
     \graphicspath{{Figs/Vector/}{Figs/}}
 \fi
 
+% Run texcount on tex-file and write results to a sum-file
+\immediate\write18{texcount thesis.tex -inc -out=thesis.sum}
+% Define macro \wordcount for including the counts
+\usepackage{verbatim}
+\newcommand\wordcount{\verbatiminput{thesis.sum}}
+
 % ************************ Thesis Information & Meta-data **********************
 %% The title of the thesis
 \title{A Fingertip Mechanical-Stress Detector using Chromatic Skin Information}
@@ -148,6 +155,8 @@ Cambridge}}
 \include{Declaration/declaration}
 \include{Acknowledgement/acknowledgement}
 \include{Abstract/abstract}
+
+\wordcount
 
 % *********************** Adding TOC and List of Figures ***********************
 

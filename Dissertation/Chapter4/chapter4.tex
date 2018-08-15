@@ -12,19 +12,8 @@
 
 \section{Implementing the Color Space}\label{sec:ImplementingTheColorSpace}
 
-In the previous two chapters, we have been approaching the color space design problem mathematically. Here, we will outline the practical implementation of the color space algorithm on the mobile device.
-
-The first and most pressing consideration is limited processing power; while our mathematical approach to the algorithm design is significantly faster and more efficient than the more typical color space algorithms --- as will be discussed in the following chapter --- minimizing the number of clock cycles spent on continuous processes is necessary in order to ensure efficient operation. In the case of redistribution, the integer matrix transform is performed first, which puts the pixel values in the quantized working type $qRsRange$ described in Chapter 2, then pixel classification is performed before any of the chromatic information is redistributed as illustrated in Figure \ref{fig:PartitioningRegions}.
-
-The pixel classification is performed before the redistribution because it excludes processing pixels which are of no interest based on both chromatic channels, whereas for redistribution one channel may clearly lie outside of the discard region $\lambda$ while the other could be kept or redistributed. With the pixel classifier, if one channel lies outside the discard region, the other is also of no interest since the pixel value is outside of the partitioning region, thereby avoiding unnecessary processing time spent on redistribution. The classification is straightforward within the limits on the channel values, so it isn't sophisticated like an elliptical partitioning or a probabilistic Gaussian-based thresholding; it is simply a quick way of excluding the majority of the pixel values which aren't of interest.
-
-Once the pixels have been classified, the redistribution is performed --- which requires further processing --- or we assign a pixel value from a small set of possibilities and skip onto the next pixel value. The redistribution function is applied to the working type $tRange$, while the comparison and classification is done in $qRsRange$. This is because the information in $tRange$ is compressed to avoid wasting space, and as a consequence of this it does not occupy the full data type. $qRsRange$, on the other hand, being the natural range multiplied by the quantization matrix qR, does occupy the full data type. Since the operation is simply a comparison between numbers, it is of no advantage to compress the information so tightly. Additionally, since $qRsRange$ is a signed range, one could look at the bit indicating the sign and immediately tell whether or not a given value will be discarded. Once scaled to $tRange$, the redistribution function is applied --- which has a source range of $tRange$ and a range $dRange$ of the destination type --- as outlined in Section \ref{sec:PreservationOfColorInformation} in Chapter 2.
-
-It should be noted that the region between the extended keep region $\omega p$ and the discard region $\lambda$ is not especially large; for even a $5\sigma$ result, it's only tens of values wide. As such, we use a lookup table for the redistribution in our actual implementation, thus further reducing the processing overhead. The C++ implementation has a lookup table threshold set to 64, a quarter of the source data type range. If the redistribution region is larger than that, the error function approximation from Chapter 2 is used. This is mainly for future-proofing the implementation; given the limited size of the region, we fully expect to use a lookup table for all practical cases.
-
-As another future concession, the facility to add pixel-based functions to the color space transform, such as the skin probability function mentioned at the end of the previous chapter, is allowed. The color space transform is a threaded process, so there is no way of knowing that the last pixel value that was processed by any given thread was an adjacent pixel, as the parallelization is handled by OpenCV's universal threading library implementations. Pixel-based functions, however, are per-pixel processes, and they come out as separate resulting channels, so they can be added to the color space transform without causing any conflicts.
-
-
+Appendix C outlines the practical algorithm which implements the techniques developed in the previous chapters taking account of the phone characteristics. 
+The resulting algorithm produces the image in the rotated color space along with a classified image which takes 4 values relating to the probability that the pixel value is in the target color region.  
 
 \section{Fingertip Model}\label{sec:FingertipModel}
 
@@ -33,6 +22,7 @@ We need an appropriate finger model so we can accurately align points on the fin
 A digit has two joints and three segments: the distal, the middle, and the proximal. Each segment is roughly approximated by a rectangle, and the length of each section approximately following a 2-3-5 ratio, with lengths counting from distal to proximal, and where 1 is the $\frac{3}{4}$ width of the middle segment. Our finger model then comprises of the lengths and widths of each segment, the positions of the joints (i.e. {\tiny {\tiny }}the knuckles) between each segment, the position of the tip, and a position in the model marking the point at which the digit goes out of frame.
 
 Given the width of the middle segment, we can then have an initial guess that the length of the distal segment is 1.5 times the initial width, the middle is 2.25 times that, and the proximal is 3.75 times that. Additionally, the center of the nail feature is not in the center of the distal segment, but a half unit (in our model units) away from the tip. The model can be laid out in units relative to the width of the digit.
+
 \subsection{The Finger Shape Detection Algorithm}\label{sec:FingerShapeDetectionAlgorithm}
 
 \subsubsection{Scale Space}\label{sec:ScaleSpace}
@@ -500,93 +490,4 @@ The chart accurately presents the logical flow and recommended assignment of the
 
 The charts in Figures \ref{fig:FingerpressFingerModel}, \ref{fig:FingerpressStdCoordinates&RapidMovement}, \ref{fig:FingerpressSmoothMovement} and \ref{fig:FingerpressICWaS} more accurately depict the actual implementation of the model by showing the data flow to the elements of the model which are accessible to the controller. 
 \clearpage
-
-\section{Appendix}
-
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=0.92\textwidth]{Chapter4/Figs/KinkFit_A.jpg}
-%    \caption{KinkFitA}\label{fig:KinkFitA}
-%\end{figure}
-
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_B.jpg}
-%    \caption{KinkFitB}\label{fig:KinkFitB}
-%\end{figure}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.88\textwidth]{Chapter4/Figs/KinkFit_C.jpg}
-    \caption{Example A of the KinkFit algorithm in action, showcasing its reliability over several iterations.}\label{fig:KinkFitC}
-\end{figure}
-
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=0.85\textwidth]{Chapter4/Figs/KinkFit_D.jpg}
-%    \caption{KinkFitD}\label{fig:KinkFitD}
-%\end{figure}
-
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=0.80\textwidth]{Chapter4/Figs/KinkFit_E.jpg}
-%    \caption{KinkFitE}\label{fig:KinkFitE}
-%\end{figure}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_F.jpg}
-    \caption{Example B of the KinkFit algorithm in action, showcasing its reliability over several iterations.}\label{fig:KinkFitF}
-\end{figure}
-
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_G.jpg}
-%    \caption{KinkFitG}\label{fig:KinkFitG}
-%\end{figure}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_H.jpg}
-    \caption{Example C of the KinkFit algorithm in action, showcasing its reliability over several iterations.}\label{fig:KinkFitH}
-\end{figure}
-
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_I.jpg}
-%    \caption{KinkFitI}\label{fig:KinkFitI}
-%\end{figure}
-
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_J.jpg}
-%    \caption{KinkFitJ}\label{fig:KinkFitJ}
-%\end{figure}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/KinkFit_K.jpg}
-    \caption{Example D of the KinkFit algorithm in action, showcasing its reliability over several iterations.}\label{fig:KinkFitK}
-\end{figure}
-
-%\begin{figure}[h!]
-%  \centering
-%   \includegraphics[width=0.95\textwidth]{Chapter4/Figs/ICWaS1.jpg}
-%    \caption{ICWaS1}\label{fig:ICWaS1}
-%\end{figure}
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/ICWaS2.jpg}
-%    \caption{ICWaS2}\label{fig:ICWaS2}
-%\end{figure}
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/ICWaS3.jpg}
-%    \caption{ICWaS3}\label{fig:ICWaS3}
-%\end{figure}
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=0.95\textwidth]{Chapter4/Figs/ICWaS4.jpg}
-%    \caption{ICWaS4}\label{fig:ICWaS4}
-%\end{figure}
 
