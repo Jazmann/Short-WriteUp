@@ -23,15 +23,13 @@ The resulting algorithm produces the image in the rotated color-space along with
 %
 %Given the width of the middle segment, we can then have an initial guess that the length of the distal segment is 1.5 times the initial width, the middle is 2.25 times that, and the proximal is 3.75 times that. Additionally, the center of the nail feature is not in the center of the distal segment, but a half unit (in our model units) away from the tip. The model can be laid out in units relative to the width of the digit.
 
-\subsection{The Finger Shape Detection Algorithm}\label{sec:FingerShapeDetectionAlgorithm}
+\section{The Finger Shape Detection Algorithm}\label{sec:FingerShapeDetectionAlgorithm}
 
-\subsubsection{Scale Space}\label{sec:ScaleSpace}
-The images captured with the iPhone camera are extremely large, and so for the development of the algorithm, we define three scale spaces: one is the original image; two is an image size which represents the tip of the finger regardless of the distance of the camera from the finger, i.e. a scale relative to the width of the finger in the frame of the camera; three is a small image size for tracking the finger where it's freely roaming in the camera's view. We want these images to be formed without the need for re-sampling. For that reason, we restrict the choice of image sizes to those which are integer factors of the image dimensions. This is done by finding the integer factors of the original image dimensions and then selecting from those factors to scale the image. It should be noted that, to simplify point correspondences, the integer scaling from the small to medium scales is also kept.
 
-\subsubsection{Finding the Frame Orientation}\label{sec:FindingTheFrameOrientation}
-It is assumed we will not be using severed fingers, and so we know that the finger must exit the camera frame; the first step of the algorithm is then to detect which of the four edges the finger is entering from. This is done simply by finding the longest on-object path running along the frame sides. So, the algorithm starts by looking down the pixels on a frame side; when it locates a high-quaternary value, it uses the Hurdle method to find the longest path in that direction starting from that point. It continues around all four sides; the longest path found by the Hurdle algorithm is assumed to correspond to the finger entering the frame. From this, we set a frame orientation, which is the angle necessary to rotate the image such that the finger will be entering the frame from the left, and we set a direction vector pointing inwards from the frame edge found.
+\subsection{Finding the Frame Orientation}\label{sec:FindingTheFrameOrientation}
+The first step of the algorithm is then to detect which of the four frame edges the finger is entering from. This is done simply by finding the longest on-object path running along the frame sides. So, the algorithm starts by looking down the pixels on a frame side; when it locates a high-quaternary value, it uses the Hurdle method to find the longest path in that direction starting from that point. It continues around all four sides; the longest path found by the Hurdle algorithm is assumed to correspond to the finger entering the frame. From this, we set a frame orientation, which is the angle necessary to rotate the image such that the finger will be entering the frame from the left, and we set a direction vector pointing inwards from the frame edge found.
 
-\subsubsection{Finding the End of the Finger Shape}\label{sec:FindingTheEndOfTheFingerShape}
+\subsection{Finding the End of the Finger Shape}\label{sec:FindingTheEndOfTheFingerShape}
 Taking the longest Hurdle path on the frame edge found above, we take the middle point on that path and start a 'Run-Reach' algorithm in the direction found previously from that point. The Run-Reach algorithm proceeds as follows:
 
 It finds a Hurdle path in the primary direction, i.e. perpendicularly away from the frame edge. At the end of the Hurdle path, it finds the Hurdle paths in the two perpendicular directions to its primary direction, i.e. parallel to the frame edge. It then finds the midpoint between the ends of the Hurdle path, and then uses that to start a new Hurdle path in its primary direction. The algorithm continues in this way until the end of the finger is found, as seen in Figure \ref{fig:FindingTheTip}.
@@ -44,11 +42,11 @@ It finds a Hurdle path in the primary direction, i.e. perpendicularly away from 
 
 
 
-\subsubsection{Filament Fill the Finger}\label{sec:FilamentFillTheFinger}
+\subsection{Filament Fill the Finger}\label{sec:FilamentFillTheFinger}
 The center points found by the Run-Reach method above form a path on the finger. This is the path given to the Filament Fill method described previously. We now have a set of edge points on the digit. These edge points also have a top and bottom correspondence which, although they're not perpendicularly-opposite points on the finger, they do allow for a midpoint on the digit to be found. This can be seen in Figure~\ref{fig:FillamentFill}.
 
-\subsubsection{Exclude Secondary Frame Edge Points and Fingertip Points }\label{sec:ExcludeSecondaryFrameEdgePointsAndFingertipPoints}
-We need to exclude from the calculation of the midpoints on the digit values which are near the tip, and values which touch a second frame edge. This is because values toward the tip --- given that the finger is not necessarily perfectly horizontally-aligned --- give unreliable midpoint values because the Run-Reach path corresponds to shorter and shorter chords on a circle. Values which touch a second edge, more likely than not, do not correspond to the edge of the digit, but are simply where the digit exits the frame (for example, JSkin Middle in Figure \ref{fig:ExcludedEdgePointsAndMidlineFit}).
+\subsection{Exclude Secondary Frame Edge and Fingertip Points }\label{sec:ExcludeSecondaryFrameEdgePointsAndFingertipPoints}
+We need to exclude from the calculation of the midpoints on the digit values which are near the tip, and values where one of the edge points touches a frame edge. This is because values toward the tip --- given that the finger is not necessarily perfectly horizontally-aligned --- give unreliable midpoint values because the Run-Reach path corresponds to shorter and shorter chords on a circle. Values where one of the edge points touches a frame edge, more likely than not, do not correspond to the edge of the digit, but are simply where the digit exits the frame (for example, JSkin Middle in Figure \ref{fig:ExcludedEdgePointsAndMidlineFit}).
 
 \begin{figure}[h!]
   \centering
@@ -58,14 +56,14 @@ We need to exclude from the calculation of the midpoints on the digit values whi
 
 To estimate which pairs of edge points correspond to points on the tip, the algorithm finds the length of the Hurdle path for all corresponding bottom-edge to top-edge points. These values are then sorted into ascending order, and then the 'Mean-Median' is taken, ensuring that the average is not affected by extreme values. The tolerance is determined by the algorithm by looking at the difference at the low and high ends of the $66\%$ range used by the Mean-Median.
 
-\subsubsection{Kink Fit to the Finger}\label{sec:KinkFitToTheFinger}
+\subsection{Kink Fit to the Finger}\label{sec:KinkFitToTheFinger}
 We now have a set of reliable points at the midpoint of the finger. Because the finger is articulated, it is reasonable to assume that it may well be bent. We're interested in the action of the finger being pressed on a surface --- as a result, the finger is expected to be articulated at the distal-middle joint, but is otherwise straight. We wish to fit a function which consists of two straight-line segments to the set of reliable middle points. The fit was found using the 'Kink Fit' algorithm described in Section \ref{sec:KinkFitMethod}.
 
-The Kink Fit algorithm as written takes a set of points where the first component is assumed to be the independent variable and the second component to be the dependent variable. However, because we haven't assumed that the finger comes into the frame from any particular direction, this can be problematic if, say, the finger comes through from the top or bottom of the frame, then the components would be in the wrong order for the Kink Fit algorithm to work. This is easily rectified by simply rotating the points into a standard orientation as if the finger is coming in from the left side of the frame. The computational effort in doing this is minimal because the number of points is small; we're not rotating the entire image, we're merely rotating a set of midline points, performing the Kink Fit algorithm, which returns a set of three points, which can then be rotated back to the original orientation.
+The Kink Fit algorithm takes a set of points where the first component is assumed to be the independent variable and the second component to be the dependent variable. However, because we haven't assumed that the finger comes into the frame from any particular direction, this can be problematic if, say, the finger comes through from the top or bottom of the frame, then the components would be in the wrong order for the Kink Fit algorithm to work. This is easily rectified by simply rotating the points into a standard orientation as if the finger is coming in from the left side of the frame. The extra computational effort is minimal because the number of points is small. Performing the Kink Fit algorithm returns a set of three points, which can then be rotated back to the original orientation.
 
 In practice, however, the Kink Fit algorithm accepts the full set of midline points and a vector of pointers to the reliable values within that set. This allows the Kink Fit algorithm to extend out the end points of the line to the edges of the digit. Were this not the case, the end points returned would lie somewhere within the digit corresponding with the first and last reliable midline points. The result can be seen in Figure \ref{fig:ExcludedEdgePointsAndMidlineFit}.
 
-\subsubsection{Parallel Lines Fit}\label{sec:ParallelLinesFit}
+\subsection{Parallel Lines Fit}\label{sec:ParallelLinesFit}
 Our model of a finger assumes that the edges are parallel to each other. Since we have a line which runs through the center of the finger, we can now calculate the distance of the edge points to that line. These distances can be classified as good edge points if they're parallel to the central line. Whether they are parallel is determined by finding the Mean-Median distance from the central line to the edge points using a $50\%$ interval in the distal portion, because it is expected that up to half the points may be in the distal segment, maybe on the tip, and a $75\%$ confidence interval in the middle segment, because we expect fewer than $\frac{1}{4}$ of the edge points to be anomalies. The points are then classified as good if they are of Mean-Median distance from the central line. It should be noted that we consider both the top and bottom edges when calculating the Mean-Median distance. This technique successfully removes anomalies which are not parallel to the central line.
 
 There is one final step: the points which are classified as good edge points are used to find a linear fit which is parallel to the central line. Finally, the width of the distal and the middle segments is calculated by finding the distance between these parallel lines. This can be seen in Figure \ref{fig:ParallelFit}.
@@ -76,8 +74,17 @@ There is one final step: the points which are classified as good edge points are
     \caption{Initial shape-fitting stage, with the Kink Fit, midline, and Parallel Edge fit, with AMS and Direct elliptical fits to the tip.}\label{fig:ParallelFit}
 \end{figure}
 
-\subsubsection{Set the Scale Space}\label{sec:SetTheScaleSpace}
-We wish to set the mid-scale such that the number of pixels across the distal segment is close to a chosen target value. As mentioned in the scale space subsection \ref{sec:ScaleSpace} we are restricting the choice of scales to integer factors of the original and integer multiples of the small scale. For the iPhone images the factors are:
+\subsection{Set the Scale Space}\label{sec:SetTheScaleSpace}
+The images captured with the iPhone camera are large, so we define three scales: 
+\begin{description}
+\item[Large] The original image
+\item[Medium] The image scaled relative to the width of the finger in the frame of the camera.
+\item[Small] A small image just large enough to detect rapid movement between frames.
+\end{description}
+
+% We want these images to be formed without the need for re-sampling. For that reason, we restrict the choice of image sizes to those which are integer factors of the image dimensions. This is done by finding the integer factors of the original image dimensions and then selecting from those factors to scale the image. It should be noted that, to simplify point correspondences, the integer scaling from the small to medium scales is also kept.
+
+We wish to set the mid-scale such that the number of pixels across the distal segment is over to a target value $w_m$. We are restricting the choice of scales to integer factors of the original and integer multiples of the small scale for efficient and accurate transformations of points and images. For the iPhone images the factors are:
 \begin{align}
 scale &= 2^{-i} 3^{-j} 17^{-k}  & i &\in \{0,1,2,3,4\} 
 &  j &\in \{0, 1\} 
@@ -121,7 +128,7 @@ k & $k_{scale}$ &j & $j_{scale}$ & $1$ & $\frac{1}{2}$ & $\frac{1}{4}$ & $\frac{
 So for a chosen small scale $S_s = 2^{-3} 3^{-1}$, a distal width in the small scale $w$ and a minimum distal width in the medium scale $w_m$. 
 Finding  $i_m$ and $j_m$ which minimise $i_m + \frac{\log(3)}{\log(2)} j_m$  and which satisfy  $2^{-i_m} 3^{-j_m} - \lceil \frac{w_m}{w} \rceil \ge 0$, $i_m\le i_s$ and $j_m \le j_s$ determines the medium scale space.
 
-\subsubsection{Modelling the Fingertip}\label{sec:ModellingTheFingertip}
+\subsection{Modelling the Fingertip}\label{sec:ModellingTheFingertip}
 \begin{figure}[p!]
   \centering
   \noindent
@@ -433,7 +440,9 @@ From this figure, you can see the metrics are fairly noisy; we want to avoid tri
 \section{Putting it All Together}\label{sec:PuttingItAllTogether}
 So far, we have said little about the app itself; the app associated with this project is designed to demonstrate how the fast color-space transform developed in Chapter 2 can be used in conjunction with the simple shape detection routines developed in this chapter to create a simple fingertip mechanical-stress detector using an iPhone.
 
-It is considered good practice when developing an iPhone app to split the code into three parts: the model, which handles all the computation; the view, which handles display and interprets user gestures; and the controller, which is the intermediary, essentially handling the control flow of the user interface. Each can be considered to be running in its own thread, and the Objective-C language handles the interaction between these threads. The recommended division of the control assigns each step in the program as indicated in Figure \ref{fig:FingerpressUI}. 
+Quite later on in development, an iOS update was released which allows in-code control of camera properties the algorithm which optimises these settings for the app is described in Appendix \ref{sec:iPhoneCameraSetup}.
+
+It is considered good practice when developing an iPhone app to split the code into three parts: the model, which handles all the computation; the view, which handles display and interprets user gestures; and the controller, which is the intermediary. Each can be considered to be running in its own thread. The recommended division of the control assigns each step in the program as indicated in Figure \ref{fig:FingerpressUI}. 
 
 \begin{figure}[h!]
   \centering
@@ -441,7 +450,7 @@ It is considered good practice when developing an iPhone app to split the code i
     \caption{Fingerpress UI flowchart}\label{fig:FingerpressUI}
 \end{figure}
 
-The chart accurately presents the logical flow and recommended assignment of the program elements. However, the chart fails to address how the model, controller and view are each running in their own threads, and so control never actually passes from the model to the controller, or vice versa. So, in the MVC structure, the model and the view may only message the controller to indicate that an event has happened. For instance, when processing a video stream, if every time the dynamic tracking part of the model required a new image, a request message must be sent to the controller, then it would need to wait for the controller to get the image from the video stream and send it to the model, i.e. the model would often be waiting for the controller to respond. For this reason, in practice, the model uses OpenCV's video stream handling capabilities to get an image directly from the video stream.
+The chart \ref{fig:FingerpressUI} fails to address how the model, controller and view are each running in their own threads, and so control never actually passes from the model to the controller, or vice versa. So, in the MVC structure, the model and the view may only message the controller to indicate that an event has happened. For instance, when processing a video stream, if every time the dynamic tracking part of the model required a new image, a request message must be sent to the controller, then it would need to wait for the controller to get the image from the video stream and send it to the model, i.e. the model would often be waiting for the controller to respond. For this reason, in practice, the model uses OpenCV's video stream handling capabilities to get an image directly from the video stream.
 
 \begin{figure}[h!]
   \centering

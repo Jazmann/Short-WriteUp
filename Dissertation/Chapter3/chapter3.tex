@@ -96,10 +96,9 @@ Here we present the algorithm which is used to generate the chromatic model. It'
         \caption{\textbf{The 3D RGB histogram}. Distinct distributions can be seen for the Skin and the background. Here the bin color corresponds to the color which that bin represents and the opacity indicates the frequency of that bin value. }  \label{fig:Fill_the_Bins}
     \end{figure}
 
-All the information which is present in the 8-bit unsigned images is in an RGB space. The first problem is that we have a large image set with large images. We're not interested in what these images are pictures of; we're only interested in the individual pixel values themselves. So, we produce a 3D histogram with one bin for each RGB combination. This gives us a histogram with 256x256x256 bins. This is a very large data set, perhaps unnecessarily so, but it's easier to work with than a set of images and is guaranteed to contain all the relevant information for the statistics.
+The first problem is that we have a large image set with large images. We're only interested in the individual pixel values so we produce a 3D histogram with one bin for each RGB combination giving 256x256x256 bins. This is a very large data set but it's easier to work with than the set of images and is guaranteed to contain all the relevant information for the statistics.
 
-
-The algorithm is written in MATLAB, and it very simply loads up each image in the set and runs through each pixel, incrementing the corresponding bin. As it's going, it keeps a count of the number of bin allocations, so we have a total pixel count. After it's run through all the images, it find the largest bin and keeps a record of the largest bin count, so we can have a normalized bin when requested.
+The algorithm is written in MATLAB, and it runs through each pixel in the image set, incrementing the corresponding bin keeping a count of the number of bin allocations, so we have a total pixel count. After it's run through all the images, it finds and records largest bin count, so we can have a normalized bin when requested.
 
 
 \subsection{Skinning the Bins}\label{sec:SkinningTheBins}

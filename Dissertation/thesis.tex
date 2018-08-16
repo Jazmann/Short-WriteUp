@@ -85,7 +85,13 @@
 \fi
 
 % Run texcount on tex-file and write results to a sum-file
-\immediate\write18{texcount thesis.tex -inc -out=thesis.sum}
+
+%%% Template using new format (version 3 and on)
+%TC:newtemplate
+%TC:template Word count (text):
+%TC:template  {text}\n
+
+\immediate\write18{texcount -nosub  thesis.tex -inc -out=thesis.sum}
 % Define macro \wordcount for including the counts
 \usepackage{verbatim}
 \newcommand\wordcount{\verbatiminput{thesis.sum}}
