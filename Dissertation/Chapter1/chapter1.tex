@@ -111,13 +111,13 @@ The remittance spectra for the four key chromophores is shown in Figure \ref{fig
 
 \subsection{Response Spectra}
 
-The response spectrum is how a given sensor responds to specific wavelengths of light. Essentially, it is the raw output from the sensor, which is almost never used and is generally inaccessible even at the hardware layer, as the circuitry very close to the CCD does a basic level of color rebalancing. As we don't know the full color correction for every possible CCD, we observed the raw output spectra of several different devices and then tried two very simple methods of rebalancing the color:
+The response spectrum is how a given sensor responds to specific wavelengths of light. Essentially, it is the raw output from the sensor, which is almost never used and is generally inaccessible even at the hardware layer, as the circuitry very close to the CCD does a basic level of color rebalancing. As we don't know the color rebalancing for every possible CCD, we observed the raw output spectra of several different devices and then tried two very simple methods of rebalancing the color:
 
 The first is peak normalization, which simply levels out the maximum output in each channel such that the peak output for each of the channels is equal. This approach is very simple, and is quite likely from an electrical engineering perspective as it facilitates the digitization of the color information.
 
 The second method is to approach the response spectra using basis functions to represent the spectrum. Using this approach, each basis function is normalized according to its integral over the visible wavelengths, giving an equal weighting to each of the response spectra functions over the range of values, rather than focusing on a peak value. Mathematically speaking, this approach is not unusual when constructing a basis set as it facilitates the maths.
 
-It should be noted that the color balancing methods used in modern CCD devices are much more sophisticated than either of these approaches.
+It should be noted that the color rebalancing methods used in modern CCD devices are much more sophisticated than either of these approaches.
 
 However, because the methods chosen here are straightforward amplifications of each channel, they're likely to be used as a first step in color rebalancing at the hardware level in the device. While we are not concerned with device constructions, it is useful to know how these devices capture the color information if this algorithm is to be used diagnostically, as color rebalancing may introduce artefacts and distortions in the data.
 
