@@ -196,76 +196,76 @@ The unit range boundaries $\ekeep$ are found using  $\ekeep =  \frac{\eKeep - \t
 
 \algosection{Suggest a new value for $\theta$.} 
 First we find the perturbation scaling (\ref{eq:perturbationFunctionSigns}) and the perturbation function ordering function (\ref{eq:abPerturbationFunctionOrdering}).
-%\begin{gather}\label{eq:abPerturbationFunctionOrdering}
-%\dqEO[  \left(
-%\begin{smallmatrix}
-% 0   \\
-% a   \\
-% b  \\
-% \end{smallmatrix} 
-%\right)  ,\theta ] =
-%\begin{cases}
-% \left(
-%\begin{smallmatrix}
-% 0 \\
-% a  \\
-% b \\
-%\end{smallmatrix} 
-%\right) & 0\leq (\theta  \bmod \frac{\pi}{3} )<\frac{\pi }{6} \\
-% \left(
-%\begin{smallmatrix}
-% 0 \\
-% b  \\
-% a \\
-%\end{smallmatrix} 
-%\right) & \frac{\pi }{6} \leq (\theta  \bmod \frac{\pi}{3} ) < \frac{\pi }{3} 
-%\end{cases} \\
-%\dqs[\theta] =
-%\begin{cases}
-% \left(
-%\begin{smallmatrix}
-% 0 & 0 & 0 \\
-% 1 & 0 & -1 \\
-% 1 & -1 & 0 \\
-%\end{smallmatrix} 
-%\right) & 0\leq (\theta  \bmod \pi )<\frac{\pi }{6} \\
-% \left(
-%\begin{smallmatrix}
-% 0 & 0 & 0 \\
-% 0 & 1 & -1 \\
-% -1 & 1 & 0 \\
-%\end{smallmatrix} 
-%\right) & \frac{\pi }{6}\leq (\theta  \bmod \pi )<\frac{\pi }{3} \\
-% \left(
-%\begin{smallmatrix}
-% 0 & 0 & 0 \\
-% 0 & -1 & 1 \\
-% -1 & 0 & 1 \\
-%\end{smallmatrix} 
-%\right) & \frac{\pi }{3}\leq (\theta  \bmod \pi )<\frac{\pi }{2} \\
-% \left(
-%\begin{smallmatrix}
-% 0 & 0 & 0 \\
-% 1 & -1 & 0 \\
-% 1 & 0 & -1 \\
-%\end{smallmatrix} 
-%\right) & \frac{\pi }{2}\leq (\theta  \bmod \pi )<\frac{2 \pi }{3} \\
-% \left(
-%\begin{smallmatrix}
-% 0 & 0 & 0 \\
-% -1 & 1 & 0 \\
-% 0 & 1 & -1 \\
-%\end{smallmatrix} 
-%\right) & \frac{2 \pi }{3}\leq (\theta  \bmod \pi )<\frac{5 \pi }{6} \\
-% \left(
-%\begin{smallmatrix}
-% 0 & 0 & 0 \\
-% -1 & 0 & 1 \\
-% 0 & -1 & 1 \\
-%\end{smallmatrix} 
-%\right) & \frac{5 \pi }{6}\leq (\theta  \bmod \pi )<\pi 
-%\end{cases}
-%\end{gather}
+\begin{gather}\label{eq:abPerturbationFunctionOrdering}
+\dqEO[  \left(
+\begin{smallmatrix}
+ 0   \\
+ a   \\
+ b  \\
+ \end{smallmatrix} 
+\right)  ,\theta ] =
+\begin{cases}
+ \left(
+\begin{smallmatrix}
+ 0 \\
+ a  \\
+ b \\
+\end{smallmatrix} 
+\right) & 0\leq (\theta  \bmod \frac{\pi}{3} )<\frac{\pi }{6} \\
+ \left(
+\begin{smallmatrix}
+ 0 \\
+ b  \\
+ a \\
+\end{smallmatrix} 
+\right) & \frac{\pi }{6} \leq (\theta  \bmod \frac{\pi}{3} ) < \frac{\pi }{3} 
+\end{cases} \\
+\dqs[\theta] =
+\begin{cases}
+ \left(
+\begin{smallmatrix}
+ 0 & 0 & 0 \\
+ 1 & 0 & -1 \\
+ 1 & -1 & 0 \\
+\end{smallmatrix} 
+\right) & 0\leq (\theta  \bmod \pi )<\frac{\pi }{6} \\
+ \left(
+\begin{smallmatrix}
+ 0 & 0 & 0 \\
+ 0 & 1 & -1 \\
+ -1 & 1 & 0 \\
+\end{smallmatrix} 
+\right) & \frac{\pi }{6}\leq (\theta  \bmod \pi )<\frac{\pi }{3} \\
+ \left(
+\begin{smallmatrix}
+ 0 & 0 & 0 \\
+ 0 & -1 & 1 \\
+ -1 & 0 & 1 \\
+\end{smallmatrix} 
+\right) & \frac{\pi }{3}\leq (\theta  \bmod \pi )<\frac{\pi }{2} \\
+ \left(
+\begin{smallmatrix}
+ 0 & 0 & 0 \\
+ 1 & -1 & 0 \\
+ 1 & 0 & -1 \\
+\end{smallmatrix} 
+\right) & \frac{\pi }{2}\leq (\theta  \bmod \pi )<\frac{2 \pi }{3} \\
+ \left(
+\begin{smallmatrix}
+ 0 & 0 & 0 \\
+ -1 & 1 & 0 \\
+ 0 & 1 & -1 \\
+\end{smallmatrix} 
+\right) & \frac{2 \pi }{3}\leq (\theta  \bmod \pi )<\frac{5 \pi }{6} \\
+ \left(
+\begin{smallmatrix}
+ 0 & 0 & 0 \\
+ -1 & 0 & 1 \\
+ 0 & -1 & 1 \\
+\end{smallmatrix} 
+\right) & \frac{5 \pi }{6}\leq (\theta  \bmod \pi )<\pi 
+\end{cases}
+\end{gather}
 In order to set the values for the scaling of the perturbation $\alpha$ and $\beta$, the absolute value of the perturbation matrix sign $\left\lVert \dqs[\theta] \right\rVert$ can be written in terms of a single row vector function $\dqas[\theta]$ 
 \begin{align*}
 \left\lVert \dqs[\theta] \right\rVert & = 
