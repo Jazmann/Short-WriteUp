@@ -49,7 +49,7 @@ Now that we have the working type range $\tRange$, accounting for both the rotat
 
 Because rotations of any angle are allowed, the values for $\discard^{RGB}_1$ may be larger than those for $\discard^{RGB}_2$ in the RGB space. The values may also be outside the RGB cube, meaning that the values may have to be truncated to fit inside the RGB cube range. 
 
-The perturbation to the rotated channel elements $\dW$ (Equation )is found for an input set of pixel values $\discard^{RGB}_2$
+The perturbation to the rotated channel elements $\dW$ (Equation \ref{eq:thePerturbationToTheRotatedChannelElements}) is found for an input set of pixel values $\discard^{RGB}_2$
 
 \begin{align*}
 \dW    &=  \min\left\{K \delta(\mu,\sigma) \right. ,  \left. \mathbf{L}(\theta) \right\} 
@@ -78,12 +78,12 @@ For the new RGB corners we need to find the largest element which can result fro
 \right]
 \end{align*}
 where $\text{max}$ acts on each row and $\text{abs}(\dqs[\theta])  = \dqs[\theta] \otimes \dqs[\theta]$. 
-These then give a combined value for $\alpha = \alpha_1 \alpha_2$ and $\beta = \beta_1 \beta_2$. Because the axis have been scaled so that the information on the axis is to be kept at least near the mean, the tolerance should be set to $\tau =1$. The condition for accepting a value of $\theta$ $1 > h(i,\iota; \alpha,\beta)$ can be used.
+These then give a combined value for $\alpha = \alpha_1 \alpha_2$ and $\beta = \beta_1 \beta_2$. Because the axes have been scaled so that the information on the axis is to be kept, at least, near the mean, the tolerance should be set to $\tau =1$. The condition for accepting a value of $\theta$ is $1 > h(i,\iota; \alpha,\beta)$.
 
 \subsection{The Complete Algorithm}
 
 
-The programmer specifies a requested value of $\theta$, values for the means $\uMean{{ab}}$ and standard deviations $\uSTD{ {ab}}$ for each of the three axis in the rotated color-space with a unit range and the data type ranges $\srcRange$ and $\dstRange$. The algorithm then proceeds as follows:
+The programmer specifies a requested value of $\theta$, values for the means $\uMean{{ab}}$ and standard deviations $\uSTD{ {ab}}$ for each of the three axes in the rotated color-space with a unit range and the data type ranges $\srcRange$ and $\dstRange$. The algorithm then proceeds as follows:
 \newline
 \algosection{Find the working type and range.} 
 Using the distribution constants (\ref{eq:DistributionConstants}), the gradient at the mean in the unit range (\ref{eq:gradient}), and the natural rotated axis lengths (\ref{eq:L}):
@@ -120,8 +120,8 @@ Using the distribution constants (\ref{eq:DistributionConstants}), the gradient 
   \widetilde{\theta} = \theta  \bmod \frac{\pi }{3} 
   \end{array}
 \end{gather*}
-The length of the axis $\tRange$ after rescaling is given by \ref{eq:CombinedRotationRange}, and the axis limits are easily found along with 
-the compression ratio $\kappa$ (\ref{eq:newCompressionRatio}).
+The length of the axis $\tRange$ after rescaling is given by Equation \ref{eq:CombinedRotationRange}, and the axis limits are easily found along with 
+the compression ratio $\kappa$ (Equation \ref{eq:newCompressionRatio}).
 \begin{gather*}
 \begin{aligned}
  \tRange(\theta,\mu,\sigma)   & =  \min\left\{K \delta(\mu,\sigma) \right. ,  \left. \mathbf{L}(\theta) \right\}  \srcRange \quad&\quad
@@ -145,7 +145,7 @@ the compression ratio $\kappa$ (\ref{eq:newCompressionRatio}).
 
 
 \algosection{Set the distribution region boundary constants.} 
-Using the constants previously defined ( \ref{eq:PreservedRegionConsts} , \ref{eq:0to1} )
+Using the constants defined in Equations \ref{eq:PreservedRegionConsts} and \ref{eq:0to1}
 \begin{align*}
   w(\mu,\sigma)  & =  \sigma  \sqrt{ \log \left(\frac{2}{\pi } \right) -2 \log \left(\kappa \sigma  \left(\Sigma^+-\Sigma^-\right)\right) } &
   \text{dL} &= \frac{1}{\dstRange} 
