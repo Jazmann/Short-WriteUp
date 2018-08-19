@@ -1,0 +1,30 @@
+### OPTIONS TO USE WITH TEXCOUNT
+
+# PROGRAM OPTIONS
+# None for now
+
+# MACRO RULES
+
+# URLS
+%macro \url [ignore]
+
+# CLEVERREF
+%macro \Cref [ignore]
+%macro \cref [ignore]
+
+# DTL
+%macro \DTLloaddb [ignore,ignore]
+
+# LONGTABLE
+%envir longtable [ignore] ignore
+
+%envir algorithmic [ignore] ignore
+%envir gather [ignore] ignore
+%envir algorithm [ignore] ignore
+%envir aligned [ignore] ignore
+
+# CITATIONS
+%macro \cite [ignore]
+%macro \Cite [ignore]
+%macro \parencite [ignore]
+%macro \Parencite [ignore]
