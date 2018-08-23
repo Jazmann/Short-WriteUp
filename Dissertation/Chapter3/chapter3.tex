@@ -209,13 +209,16 @@ We now have a histogram which has bin values relevant to the target and no other
 A least squares fit of the 2D Histogram with a 2D Gaussian function (Equation \ref{eq:2DGaussian}) is found using MATLAB's lsqcurvefit function.
 \newcommand{\CaMu}{ \overline{\mathbf{Ca}} }
 \newcommand{\CbMu}{\overline{\mathbf{Cb}}  }
-\begin{gather}\label{eq:2DGaussian}
+\begin{equation}\label{eq:2DGaussian}
+    \begin{gathered}
+\textbf{Initialise} \quad \mu = \widetilde{\mu} \quad \sigma = \widetilde{\sigma} \quad \theta = \widetilde{\theta} \\
+\textbf{ Perform Least Squares Fit} \\
 \textbf{Let} \quad \CaMu = \text{Ca}-\mu_1 \quad \text{and} \quad \CbMu = \text{Cb}-\mu_2 \\
 \exp \left(
 -\frac{\left( - \CaMu \; \sine{     \theta } + \CbMu \; \cosine{ \theta } \right){}^2}{2 \sigma_2^2} - 
 \frac{\left(      \CaMu \; \cosine{ \theta } + \CbMu \; \sine{      \theta} \right){}^2}{2 \sigma_1^2} \right)
-\end{gather}
-
+\end{gathered}
+\end{equation}
 
 
 \section{Sample Sets and Results}\label{sec:SampleSets}
