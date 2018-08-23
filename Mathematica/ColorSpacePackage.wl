@@ -720,7 +720,7 @@ cubeCorners[minMax:{{_,_},{_,_},{_,_}}]:={
 faces = {{1,2,3,4},{5,6,7,8},{1,2,7,6},{2,3,8,7},{3,4,5,8},{1,4,5,6}};
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*RGB Cube*)
 
 
@@ -933,8 +933,8 @@ SetOptions[GraphicsCube,Lighting->"Neutral",PlotRange->All,Axes->True,ViewVertic
 
 GraphicsCubeOpts=Sequence[Lighting->"Neutral",Axes->True,ViewVertical->{1,0,0},AxesLabel->{"Luminosity","Chrom a", "Chrom b"}];
 GraphicsCubeOptions[opts:OptionsPattern[Graphics3D]]:=Module[{dfltOpts},
-dfltOpts=Flatten[{GraphicsCubeOpts,FilterRules[Options[Graphics3D],Except[GraphicsCubeOpts]]}];
-Flatten[{opts, FilterRules[dfltOpts,Except[opts]]}]
+dfltOpts=Flatten[{GraphicsCubeOpts,FilterRules[Options[Graphics3D],Except[Alternatives[GraphicsCubeOpts]]]}];
+Flatten[{opts, FilterRules[dfltOpts,Except[Alternatives[opts]]]}]
 ]
 
 

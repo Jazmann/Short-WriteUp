@@ -20,8 +20,10 @@
 
 %envir algorithmic [ignore] ignore
 %envir gather [ignore] ignore
+%envir gathered [ignore] ignore
 %envir algorithm [ignore] ignore
 %envir aligned [ignore] ignore
+%envir figure [ignore] ignore
 
 # CITATIONS
 %macro \cite [ignore]
