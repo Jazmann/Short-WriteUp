@@ -84,7 +84,7 @@ The images captured with the iPhone camera are large, so we define three scales:
 
 % We want these images to be formed without the need for re-sampling. For that reason, we restrict the choice of image sizes to those which are integer factors of the image dimensions. This is done by finding the integer factors of the original image dimensions and then selecting from those factors to scale the image. It should be noted that, to simplify point correspondences, the integer scaling from the small to medium scales is also kept.
 
-We wish to set the mid-scale such that the number of pixels across the distal segment is over to a target value $w_m$. We are restricting the choice of scales to integer factors of the original and integer multiples of the small scale for efficient and accurate transformations of points and images. For the iPhone images the factors are:
+We wish to set the mid-scale such that the number of pixels across the distal segment is over a target value $w_m$. We are restricting the choice of scales to integer factors of the original and integer multiples of the small scale for efficient and accurate transformations of points and images. For the iPhone images the factors are:
 \begin{align}
 scale &= 2^{-i} 3^{-j} 17^{-k}  & i &\in \{0,1,2,3,4\} 
 &  j &\in \{0, 1\} 
@@ -125,8 +125,7 @@ k & $k_{scale}$ &j & $j_{scale}$ & $1$ & $\frac{1}{2}$ & $\frac{1}{4}$ & $\frac{
 \caption{The image pixel dimensions for all possible integer factor scalings.}
 \end{table}
 
-So for a chosen small scale $S_s = 2^{-3} 3^{-1}$, a distal width in the small scale $w$ and a minimum distal width in the medium scale $w_m$. 
-Finding  $i_m$ and $j_m$ which minimise $i_m + \frac{\log(3)}{\log(2)} j_m$  and which satisfy  $2^{-i_m} 3^{-j_m} - \lceil \frac{w_m}{w} \rceil \ge 0$, $i_m\le i_s$ and $j_m \le j_s$ determines the medium scale space.
+So for a chosen small scale $S_s = 2^{-3} 3^{-1}$, a distal width in the small scale $w$ and a minimum distal width in the medium scale $w_m$, we must find values for $i_m$ and $j_m$ which minimize $i_m + \frac{\log(3)}{\log(2)} j_m$  and which satisfy  $2^{-i_m} 3^{-j_m} - \lceil \frac{w_m}{w} \rceil \ge 0$ with $i_m\le i_s$ and $j_m \le j_s$. These conditions determine the medium scale space.
 
 \subsection{Modelling the Fingertip}\label{sec:ModellingTheFingertip}
 \begin{figure}[p!]
@@ -171,7 +170,7 @@ Finding  $i_m$ and $j_m$ which minimise $i_m + \frac{\log(3)}{\log(2)} j_m$  and
     \caption{The Fingertip Model Algorithm.}\label{fig:ModelingFingertip}
 \end{figure}
 
-Having determined a measure of the width of the distal portion of the fingertip allows for a more robust model of the fingertip to be determined. This is because the measurement of the distal width is far more reliable than the distal length which has so far been determined, as the distal length has been found by evaluating where the "kink" of the midline points lies. For example, if the distal joint is un-flexed, the knuckle portion will be overlooked entirely, as seen in Figure \ref{fig:ParallelFit}. It turns out that the average anatomical ratios of the distal,  middle, and  proximal lengths $2:3:5$ and the width $w$ to distal length $l_{d}$ ratio $2 : 3$  is a far more reliable method of determining the distal length $l_{d} = 1.5 w$.
+Having determined a measure of the width of the distal portion of the fingertip allows for a more robust model to be found. This is because the measurement of the distal width is far more reliable than the distal length which has so far been determined, as the distal length has been found by evaluating where the "kink" of the midline points lies. For example, if the distal joint is un-flexed, the knuckle portion will be overlooked entirely, as seen in Figure \ref{fig:ParallelFit}. It turns out that the average anatomical ratios of the distal,  middle, and  proximal lengths $2:3:5$ and the width $w$ to distal length $l_{d}$ ratio $2 : 3$  is a far more reliable method of determining the distal length $l_{d} = 1.5 w$.
 
 From the kink fit, we have a midline, which is specified by three points. We now determine two points on this line, which are $\frac{1}{2}$ the distal width ($d_1$) and $1\frac{1}{2}$ the distal width from the tip ($d_2$). So the midline point that lies between the two points can now be taken to correspond to the straight-edged section of the distal portion of the finger. These points are passed to the Trapezian Fit method (\ref{sec:TrapezianFit}), and the points which lie between the tip and the point half the distal width from the tip are passed to the Elliptical Fit (\ref{sec:EllipticalFitMethod}). The ellipse is adjusted to correspond with the two near vertices of the Trapezian; the result can be seen in Figure \ref{fig:ModelingFingertip}.
 
