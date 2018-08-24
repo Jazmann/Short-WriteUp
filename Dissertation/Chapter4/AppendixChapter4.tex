@@ -1,7 +1,7 @@
 
-\chapter{Colorspace Methods}
+\chapter{Color Space Methods}
 
-\section{Implementing the Color Space}\label{sec:ImplementingTheColorSpace}
+\section{Implementing the Color Space}\label{sec:ImplementingTheColorSpaceApp}
 
 Here, we will outline the practical implementation of the color space algorithm on the mobile device.
 
@@ -243,7 +243,7 @@ The Hurdle method is an algorithm for finding a path inside an object using the 
 The Filament Fill method takes a path --- given as a sequence of points --- within an object and finds the edges of the object using the Hurdle method running away from the path within the object. Assuming a horizontally-oriented object, the path's extent in the horizontal direction is divided equally into points, and these points are used to start the Hurdle method in the vertical directions, and vice versa for vertical-oriented objects.
 
 
-
+\section{The `Mean-Median' Method}\label{sec:MeanMedian}
 For the purposes of the shape detection algorithms, there are metrics that are applied which suffer from noise and anomalies, where the noise is due to the natural variability of human digits from regular geometric forms, and the anomalies are due to misdetections of the edges of the digit. We assume that the anomalous results are extreme values, however we acknowledge that the most common (mode) or middle (median) values may not be representative of the best geometric approximation for the shape. The Mean-Median method --- similar to the "k-Nearest Neighbors" algorithm --- solves this problem by taking a confidence interval around the median and then taking the mean of the points within this interval. This method is a useful adaptation of methods like the k-Nearest Neighbors in that it solves the outlier problem for this particular application.
 
 \section{The `Kink Fit' Method}\label{sec:KinkFitMethod}
