@@ -12,8 +12,8 @@
 
 \section{Implementing the Color Space}\label{sec:ImplementingTheColorSpace}
 
-Appendix C outlines the practical algorithm which implements the techniques developed in the previous chapters taking account of the phone characteristics. 
-The resulting algorithm produces the image in the rotated color-space along with a classified image which takes 4 values relating to the probability that the pixel value is in the target color region.  
+Appendix C outlines the practical algorithm which implements the techniques developed in the previous chapters, taking account of the phone characteristics. 
+The resulting algorithm produces the image in the rotated color-space along with a classified image, which takes four values relating to the probability that the pixel value is in the target color region.  
 
 %\section{Fingertip Model}\label{sec:FingertipModel}
 %
@@ -27,7 +27,7 @@ The resulting algorithm produces the image in the rotated color-space along with
 
 
 \subsection{Finding the Frame Orientation}\label{sec:FindingTheFrameOrientation}
-The first step of the algorithm is then to detect which of the four frame edges the finger is entering from. This is done simply by finding the longest on-object path running along the frame sides. So, the algorithm starts by looking down the pixels on a frame side; when it locates a high-quaternary value, it uses the Hurdle method to find the longest path in that direction starting from that point. It continues around all four sides; the longest path found by the Hurdle algorithm is assumed to correspond to the finger entering the frame. From this, we set a frame orientation, which is the angle necessary to rotate the image such that the finger will be entering the frame from the left, and we set a direction vector pointing inwards from the frame edge found.
+The first step of the algorithm is to detect which of the four frame edges the finger is entering from. This is done simply by finding the longest on-object path running along the frame sides. So, the algorithm starts by looking down the pixels on a frame side; when it locates a high-quaternary value, it uses the Hurdle method to find the longest path in that direction starting from that point. It continues around all four sides; the longest path found by the Hurdle algorithm is assumed to correspond to the finger entering the frame. From this, we set a frame orientation, which is the angle necessary to rotate the image such that the finger will be entering the frame from the left, and we set a direction vector pointing inwards from the frame edge found.
 
 \subsection{Finding the End of the Finger Shape}\label{sec:FindingTheEndOfTheFingerShape}
 Taking the longest Hurdle path on the frame edge found above, we take the middle point on that path and start a 'Run-Reach' algorithm in the direction found previously from that point. The Run-Reach algorithm proceeds as follows:
