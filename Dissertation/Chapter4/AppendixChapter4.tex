@@ -208,7 +208,7 @@ In this section, pattern recognition routines which use the new color space are 
     \caption{The Quaternary Pixel Classification presented alongside the probability scored image for comparison.}\label{fig:2BitImage}
 \end{figure}
 
-We wish to classify the pixel values as either skin or not skin whist taking account of the reliability of the detected color due to whiteout and blackout effects. This is done by applying equation \ref{eq:InWoBoRegion} and setting a boolean flag $\WoBoBool$ accordingly. The square partitioning performed earlier in the algorithm also sets a boolean flag $\ColorSquareBool$ to 1 if the pixel is within the target range and to 0 otherwise. These can be combined to produce a 2-bit image which indicates both if the pixel value is in the target chromatic range and the reliability of the classification.
+We wish to classify the pixel values as either skin or not skin whist taking account of the reliability of the detected color due to white-out and black-out effects. This is done by applying equation \ref{eq:InWoBoRegion} and setting a boolean flag $\WoBoBool$ accordingly. The square partitioning performed earlier in the algorithm also sets a boolean flag $\ColorSquareBool$ to 1 if the pixel is within the target range and to 0 otherwise. These can be combined to produce a 2-bit image which indicates both if the pixel value is in the target chromatic range and the reliability of the classification.
 % 
 
 \begin{center}
